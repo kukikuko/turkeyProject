@@ -15,19 +15,38 @@
 		Userdao personDao = new Userdao();
 		String id = request.getParameter("userId");
 		String pw = request.getParameter("userPw");
-	
-		int result = personDao.login(id, pw);
+		String type = request.getParameter("chk_info");
+		int result = 0; 
+		out.println(type);
+		
+// 		result = personDao.profLogin(id, pw);
+		
+		if(type.equals("학생")) {
+			result = personDao.studentLogin(id, pw);
+		} else if(type.equals("교수")) {
+			result = personDao.profLogin(id, pw);			
+		}
 		
 		if(result > 0) {
 	%>
-	<script>alert('로그인 성공')</script>
+		<script>alert('로그인 성공')</script>
+		<script>location.href = "index.jsp"</script>
+	<%		
+		} else if(result == 0) {
+	%>
+		<script>alert('로그인 실패1')</script>
+		<script>location.href = "main.jsp"</script>
+	<%		
+		} else if(result == -1) {
+	%>
+		<script>alert('로그인 실패2')</script>
+		<script>location.href = "main.jsp"</script>
 	<%		
 		} else {
-	%>
-	<script>alert('로그인 실패')</script>
+	%>	
+		<script>alert('로그인 실패3')</script>
 	<%		
-		}
-	%>
-	<script>location.href = "main.jsp"</script>
+		};
+	%>	
 </body>
 </html>

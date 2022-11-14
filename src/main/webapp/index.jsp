@@ -3,6 +3,7 @@
 <%@ page import="lecture.dao.LectureDao" %>
 <%@ page import="lecture.dto.LectureInfo" %>
 <%@ page import="java.util.*" %>
+<%request.setCharacterEncoding("UTF-8");%>
     
 <!DOCTYPE html>
 <html>
@@ -56,7 +57,6 @@
 							placeholder="검색어 입력" name="searchText" maxlength="100"></td>
 						<td><button type="submit" class="btn btn-success">검색</button></td>
 					</tr>
-
 				</table>
 			</form>
 		</div>

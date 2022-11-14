@@ -69,7 +69,7 @@ public class Userdao {
 		return result;
 	}
 
-	public int login(String userID, String userPassword) {
+	public int studentLogin(String userID, String userPassword) {
 		String SQL = "SELECT sd_pw FROM TEST_USER WHERE sd_id =?";
 		try {
 			connect();
@@ -93,4 +93,31 @@ public class Userdao {
 		}
 		return -2; // 데이터베이스 오류
 	}
+	
+	public int profLogin(String userID, String userPassword) {
+		String SQL = "SELECT pf_pw FROM TEST_PROF WHERE pf_id =?";
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				System.out.println(rs.getString(1));
+				if (rs.getString(1).equals(userPassword)) {
+					return 1; // 로그인 성공
+				} else
+					return 0; // 비밀번호 불일치
+			}
+			return -1; // 아이디가 없음
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return -2; // 데이터베이스 오류
+	}
+	
+	
 }
