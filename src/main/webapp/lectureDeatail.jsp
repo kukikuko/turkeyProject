@@ -53,7 +53,7 @@
     	    	<td><%=lectureInfo.getClassTime()%></td>
     	    	<td><%=lectureInfo.getLectureRoom()%></td>
     	    	<td><%=lectureInfo.getProfessor()%></td>
-    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureDeatail.jsp'">수강신청</button><td>
+    	    	<td><button type="button" class="btn btn-primary" >수강신청</button><td>
     	    </tr>
     
     
