@@ -32,18 +32,19 @@
 		
 		if(result > 0) {
 			if(loginResult == 1) {
-	%>
-		<script>alert('학생 로그인 성공')</script>
-		<script>location.href = 'index.jsp?<%=id%>';</script>
-	<%		
-			} else if(loginResult == 2){ %>
-			
-				<script>alert('교수 로그인 성공')</script>
-				<script>location.href = 'profDetail.jsp?<%=id%>';</script>
-						
-	<%
-		personDao.deleteProf();
-		personDao.insertProf(id);
+				personDao.deleteloginDb();
+				personDao.loginDb(id);
+				%>
+					<script>alert('학생 로그인 성공')</script>
+					<script>location.href = 'index.jsp?<%=id%>';</script>
+				<%		
+			} else if(loginResult == 2){ 
+				%>
+					<script>alert('교수 로그인 성공')</script>
+					<script>location.href = 'profDetail.jsp?<%=id%>';</script>
+				<%
+					personDao.deleteProf();
+					personDao.insertProf(id);
 		} else if(result == 0) {
 	%>
 		<script>alert('로그인 실패1')</script>

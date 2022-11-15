@@ -91,7 +91,7 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
-
+		
 		return -2; // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
 	}
 
@@ -118,6 +118,63 @@ public class Userdao {
 			disConnect();
 		}
 		return -2; // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
+	}
+	
+	public int loginDb(String id) {
+
+		int result = 0;
+
+		String SQL = "insert into login_user "
+				+ "values(?, (select sd_name from test_user where sd_id = ?))";
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, id);
+			psmt.setString(2, id);
+			return psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return result;
+	}
+	
+	public int insertDept(int id) {
+		int result = 0;
+
+		String SQL = "insert into test_user_dept "
+				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ? +1)";
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setInt(1, id);
+			return psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return result;
+	}
+	
+	public int deleteloginDb() {
+		int result = 0;
+
+		String SQL = "delete from login_user";
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			return psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return result;
 	}
 
 	public int insertProf(String userID) {
@@ -149,26 +206,5 @@ public class Userdao {
 		}
 		return result;
 	}
-
 	
-	public int loginDb(String id) {
-
-		int result = 0;
-
-		String SQL = "insert into login_user " + "values(?, (select sd_name from test_user where sd_id = ?))";
-		try {
-			connect();
-			psmt = conn.prepareStatement(SQL);
-			psmt.setString(1, id);
-			psmt.setString(2, id);
-			return psmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			disConnect();
-		}
-
-		return result;
-	}
-
 }
