@@ -21,13 +21,15 @@
 		if(result > 0) {
 	%>
 	<script>alert('로그인 성공')</script>
+	<script>location.href = "index.jsp"</script>
 	<%		
 		} else {
 	%>
 	<script>alert('로그인 실패')</script>
+	<script>location.href = "main.jsp"</script>
+	
 	<%		
 		}
 	%>
-	<script>location.href = "main.jsp"</script>
 </body>
 </html>

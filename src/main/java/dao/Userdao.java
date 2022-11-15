@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Userdao {
 
 	Connection conn = null;
@@ -91,6 +93,9 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
+		
 		return -2; // 데이터베이스 오류
 	}
+	
+		
 }
