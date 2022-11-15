@@ -30,8 +30,10 @@
 		if(result > 0) {
 	%>
 		<script>alert('로그인 성공')</script>
-		<script>location.href = "index.jsp"</script>
-	<%		
+		<script>location.href = 'index.jsp?<%=id%>';</script>
+	<%	
+		personDao.deleteloginDb();
+		personDao.loginDb(id);
 		} else if(result == 0) {
 	%>
 		<script>alert('로그인 실패1')</script>
