@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecture.dto.LectureInfo;
+import lecture.dto.StudentInfo;
 
 
 public class LectureDao {
@@ -223,7 +224,39 @@ public class LectureDao {
 	      return list;
 	   }
 	
-	
+	public List<StudentInfo> showStudent(int indexId){
+		List<StudentInfo> list = new ArrayList<StudentInfo>();
+		String sql = "select u.sd_name, u.sd_email, u.sd_pn "
+				+ "from test_user_dept t, test_user u "
+				+ "where t.user_id = u.sd_id and dept_id = ?+1";
+		StudentInfo studentInfo = null;
+		try{
+			connect();
+			System.out.println(indexId);
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, indexId);
+			rs = psmt.executeQuery();
+		
+			while(rs.next()) {
+				studentInfo = new StudentInfo();
+				studentInfo.setName(rs.getString("SD_NAME"));
+				studentInfo.setEmail(rs.getString("SD_EMAIL"));
+				studentInfo.setPn(rs.getString("SD_PN"));
+				list.add(studentInfo);//list에 해당 인스턴스를 담는다.
+				System.out.println(rs.getString("SD_EMAIL"));
+				System.out.println(rs.getString("SD_PN"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnect();
+		}
+		
+		System.out.println(list.get(0).getEmail());
+		System.out.println(list.get(1).getEmail());
+		return list;
+	}
+		
 	
 	
 	

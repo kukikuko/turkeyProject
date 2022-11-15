@@ -47,7 +47,7 @@
 				<td><%=l.getDepartment()%></td>
 				<td><%=l.getSubjectNumber()%></td>
 				<td><button
-					onclick="location.href='setScore.jsp?indexId=<%=l.getIndexId()%>'"
+					onclick="location.href='showStudent.jsp?indexId=<%=l.getIndexId()%>'"
 					style="cusor: pointer"><%=l.getSubjectName()%></button></td>
 				<td><%=l.getClassTime()%></td>
 				<td><%=l.getLectureRoom()%></td>
