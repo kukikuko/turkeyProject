@@ -3,6 +3,7 @@
 <%@ page import="lecture.dao.LectureDao" %>
 <%@ page import="lecture.dto.LectureInfo" %>
 <%@ page import="java.util.*" %>
+<%request.setCharacterEncoding("UTF-8");%>
     
 <!DOCTYPE html>
 <html>
@@ -34,6 +35,38 @@
 %>
 
 
+
+
+<!-- 검색기능 보이는곳 -->
+
+<%
+	
+%>
+<div class="container">
+		<div class="row">
+			<form method="post" name="search" action="searchbbs.jsp">
+				<table class="pull-right">
+					<tr>
+						<td><select class="form-control" name="searchField">
+								<option value="0">선택</option>
+								<option value="department">학과</option>
+								<option value="subjectName">과목명</option>
+								<option value="professor">교수명</option>
+						</select></td>
+						<td><input type="text" class="form-control"
+							placeholder="검색어 입력" name="searchText" maxlength="100"></td>
+						<td><button type="submit" class="btn btn-success">검색</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+
+
+
+
+
+
 <table class="table">
   <thead>
     <tr>
@@ -46,17 +79,7 @@
     </tr>
   </thead>
   <tbody>
-    <%
-//     	if(personInfoList != null && personInfoList.size()>0 ){
-//     		for(PersonInfo info : personInfoList){
-//     			//out.println("이름 : " + info.getName()+"<br/>");
-//     			out.println("<tr>");
-//     			out.println("<td>"+ info.getId()+"</td>");
-//     			out.println("<td>"+ info.getName()+"</td>");
-//     			out.println("</tr>");
-//     		}
-//     	}
-    %>
+
     
     <%
     	if(lectureInfoList != null && lectureInfoList.size()>0 ){

@@ -17,9 +17,9 @@ public class Userdao {
 	ResultSet rs = null;
 
 	public void connect() throws Exception {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // Á¢¼Ó DBÁ¤º¸
-		String db_id = "scott"; // Á¢¼Ó ¾ÆÀÌµð
-		String db_pw = "tiger"; // Á¢¼Ó ¾ÆÀÌµðÀÇ ºñ¹Ð¹øÈ£
+		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // ï¿½ï¿½ï¿½ï¿½ DBï¿½ï¿½ï¿½ï¿½
+		String db_id = "scott"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+		String db_pw = "tiger"; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½Ð¹ï¿½È£
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
@@ -71,7 +71,7 @@ public class Userdao {
 		return result;
 	}
 
-	public int login(String userID, String userPassword) {
+	public int studentLogin(String userID, String userPassword) {
 		String SQL = "SELECT sd_pw FROM TEST_USER WHERE sd_id =?";
 		try {
 			connect();
@@ -82,11 +82,11 @@ public class Userdao {
 			if (rs.next()) {
 				System.out.println(rs.getString(1));
 				if (rs.getString(1).equals(userPassword)) {
-					return 1; // ·Î±×ÀÎ ¼º°ø
+					return 1; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				} else
-					return 0; // ºñ¹Ð¹øÈ£ ºÒÀÏÄ¡
+					return 0; // ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½Ä¡
 			}
-			return -1; // ¾ÆÀÌµð°¡ ¾øÀ½
+			return -1; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -94,8 +94,33 @@ public class Userdao {
 			disConnect();
 		}
 		
-		return -2; // µ¥ÀÌÅÍº£ÀÌ½º ¿À·ù
+		return -2; // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	}
 	
-		
+	public int profLogin(String userID, String userPassword) {
+		String SQL = "SELECT pf_pw FROM TEST_PROF WHERE pf_id =?";
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				System.out.println(rs.getString(1));
+				if (rs.getString(1).equals(userPassword)) {
+					return 1; // ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				} else
+					return 0; // ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½Ä¡
+			}
+			return -1; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return -2; // ï¿½ï¿½ï¿½ï¿½ï¿½Íºï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	}
+	
+	
 }

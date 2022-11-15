@@ -164,7 +164,37 @@ public class LectureDao {
 		return lectureInfo;
 	}
 	
-	
+	//--회원 정보 검색
+	public List<LectureInfo> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
+	      List<LectureInfo> list = new ArrayList<LectureInfo>();
+	      String sql ="select * from lecture_info WHERE "+searchField.trim();
+	      try {
+	            if(searchText != null && !searchText.equals("") ){
+	            	sql +=" LIKE '%"+searchText.trim()+"%'";
+	            }
+	            connect();
+	            psmt=conn.prepareStatement(sql);
+				rs=psmt.executeQuery();//select
+	         while(rs.next()) {
+	        	 LectureInfo lectureInfo = new LectureInfo();
+	        	 lectureInfo.setIndexId(rs.getInt("indexId"));
+	        	 lectureInfo.setDepartment(rs.getString("department"));
+	        	 lectureInfo.setSubjectNumber(rs.getString("subjectNumber"));
+	        	 lectureInfo.setSubjectName(rs.getString("subjectName"));
+	        	 lectureInfo.setClassTime(rs.getString("classTime"));
+	        	 lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
+	        	 lectureInfo.setProfessor(rs.getString("professor"));
+	        	 list.add(lectureInfo);//list에 해당 인스턴스를 담는다.
+	         }
+				
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }finally {
+				closeConnect();
+//				System.out.println(list.size());
+			}
+	      return list;
+	   }
 	
 	
 	
