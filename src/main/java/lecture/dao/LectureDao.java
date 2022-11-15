@@ -191,7 +191,6 @@ public class LectureDao {
 	         e.printStackTrace();
 	      }finally {
 				closeConnect();
-//				System.out.println(list.size());
 			}
 	      return list;
 	   }
