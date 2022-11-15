@@ -12,7 +12,7 @@ public class LectureInfo {
 				+ ", subjectName=" + subjectName + ", classTime=" + classTime + ", lectureRoom=" + lectureRoom
 				+ ", professor=" + professor + "]";
 	}
-										public int getIndexId() {
+	public int getIndexId() {
 		return indexId;
 	}
 	public void setIndexId(int indexId) {
