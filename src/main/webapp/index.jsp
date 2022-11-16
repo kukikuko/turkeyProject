@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="lecture.dao.LectureDao" %>
 <%@ page import="lecture.dto.LectureInfo" %>
+<%@ page import="lecture.dto.StudentInfo" %>
 <%@ page import="java.util.*" %>
 <%request.setCharacterEncoding("UTF-8");%>
     
@@ -14,9 +15,19 @@
 </head>
 <body>
 
+
+<%
+	LectureDao lectureDao = new LectureDao();
+	List<LectureInfo> lectureInfoList = lectureDao.selectLectureInfoList();
+	StudentInfo si = new StudentInfo();
+%>
+
+
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="home.jsp">인덱스홈</a>
+    <button onclick = "location.href='updateStudent.jsp?sd_id'">개인정보 수정</button>
+     
     <button class="navbar-toggler" type="button" 
     		data-bs-toggle="collapse" 
     		data-bs-target="#navbarNavAltMarkup" 
@@ -29,10 +40,7 @@
   </div>
 </nav>
 
-<%
-	LectureDao lectureDao = new LectureDao();
-	List<LectureInfo> lectureInfoList = lectureDao.selectLectureInfoList();
-%>
+
 
 
 

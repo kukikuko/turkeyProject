@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import lecture.dto.LectureInfo;
+
 public class Userdao {
 
 	Connection conn = null;
@@ -192,6 +194,7 @@ public class Userdao {
 		}
 		return result;
 	}
+	
 	public int deleteProf() {
 		int result = 0;
 		String SQL = "delete from login_prof ";
@@ -206,5 +209,64 @@ public class Userdao {
 		}
 		return result;
 	}
+
+	public void updateStudent(String name, String email, String pn) {
+
+		String SQL = "update test_user "
+				+ "set "
+				+ "sd_name = ?, "
+				+ "sd_email = ?, "
+				+ "sd_pn = ? "
+				+ "where sd_id = "
+				+ "(select user_id from login_user)";
+				
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, name);
+			psmt.setString(2, email);
+			psmt.setString(3, pn);
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+	}
+
+	public User selectStudent(){
+		String sql = "select * from test_user "
+				+ "where sd_id = (select user_id from login_user)";
+		
+		User user = null;
+		try{
+			connect();
+			psmt = conn.prepareStatement(sql);
 	
+			rs = psmt.executeQuery();
+		
+			user = new User();
+			if(rs.next()) {
+
+				user.setUserID(rs.getString("sd_id"));
+				user.setUserPassword(rs.getString("sd_pw"));
+				user.setUserName(rs.getString("sd_name"));
+				user.setUserEmail(rs.getString("sd_email"));
+				user.setUserPhoneNumber(rs.getString("sd_pn"));
+			}
+			
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+
+		return user;
+	}
+
+
 }
