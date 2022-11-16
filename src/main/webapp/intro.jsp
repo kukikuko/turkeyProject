@@ -32,6 +32,7 @@ width : 100vw; height: 100vh; background-repeat: no-repeat; background-color: #2
 								name="userId" type="text" class="input">
 						</div>
 						<div class="group">
+						
 							<label for="pass" class="label">비밀번호</label> <input id="pass"
 								name="userPw" type="password" class="input" data-type="password">
 						</div>
