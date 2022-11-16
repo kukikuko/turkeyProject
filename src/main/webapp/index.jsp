@@ -94,12 +94,12 @@
     		<tr>
     	    	<td><%=info.getDepartment()%></td>
     	    	<td><%=info.getSubjectNumber()%></td>
-    	    	<td><button onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()-1%>'"><%=info.getSubjectName()%></button></td>
+    	    	<td><button onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()%>'"><%=info.getSubjectName()%></button></td>
     	    	<td><%=info.getClassTime()%></td>
     	    	<td><%=info.getLectureRoom()%></td>
     	    	<td><%=info.getProfessor()%></td>
-    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureDeatail.jsp?indexId=<%=info.getIndexId()-1%>'">수강신청</button><td>
-    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()-1%>'">수정하기</button><td>
+    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureDeatail.jsp?indexId=<%=info.getIndexId()%>'">수강신청</button><td>
+    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()%>'">수정하기</button><td>
     	    </tr>
     <%    			
     		}

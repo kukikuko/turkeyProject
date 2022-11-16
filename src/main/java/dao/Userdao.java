@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Userdao {
 
 	Connection conn = null;
@@ -41,7 +43,7 @@ public class Userdao {
 				conn.close();
 			}
 		} catch (SQLException e) {
-// TODO Auto-generated catch block
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -94,9 +96,9 @@ public class Userdao {
 		
 		return -2; // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
 	}
-
+	
 	public int profLogin(String userID, String userPassword) {
-		String SQL = "SELECT pf_no FROM TEST_PROF WHERE pf_no =?";
+		String SQL = "SELECT pf_pw FROM TEST_PROF WHERE pf_id =?";
 		try {
 			connect();
 
@@ -145,7 +147,7 @@ public class Userdao {
 		int result = 0;
 
 		String SQL = "insert into test_user_dept "
-				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ? +1)";
+				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ?)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -176,35 +178,17 @@ public class Userdao {
 
 		return result;
 	}
-
-	public int insertProf(String userID) {
-		int result = 0;
-		String SQL = "insert into login_prof values(?)";
-		try {
-			connect();
-			psmt = conn.prepareStatement(SQL);
-			psmt.setInt(1, Integer.parseInt(userID));
-			return psmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			disConnect();
-		}
-		return result;
-	}
-	public int deleteProf() {
-		int result = 0;
-		String SQL = "delete from login_prof ";
-		try {
-			connect();
-			psmt = conn.prepareStatement(SQL);
-			return psmt.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			disConnect();
-		}
-		return result;
-	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

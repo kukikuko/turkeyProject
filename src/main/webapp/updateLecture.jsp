@@ -32,7 +32,7 @@
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
 		LectureDao lectureDao = new LectureDao();
-		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id+1));
+		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 		Lecture lecture = new Lecture();
 	%>
 
@@ -62,9 +62,9 @@
     	    	<td><%=lectureInfo.getProfessor()%></td>
     	    	<td><button id = "deleteButton"
     	    				name = "updatelecture2"
-    	    				value = "<%=lectureInfo.getIndexId()-1%>"
+    	    				value = "<%=lectureInfo.getIndexId()%>"
     	    				>삭제하기</button>
-    	    	 <input type="hidden" name = "index_3" value="<%=lectureInfo.getIndexId()-1%>" required>			
+    	    	 <input type="hidden" name = "index_3" value="<%=lectureInfo.getIndexId()%>" required>			
     	    	</td>
     	    	
     	    </tr>
@@ -80,7 +80,7 @@
 	  <input type="text" class="form-control" placeholder="변경할 과목명" 
 	  aria-label="Recipient's username" aria-describedby="button-addon2"
 	  name = "updatelecture" value = "">
-	  <input type="hidden" name = "index_1" value="<%=lectureInfo.getIndexId()-1%>" required>
+	  <input type="hidden" name = "index_1" value="<%=lectureInfo.getIndexId()%>" required>
 	  
 	  <button class="btn btn-outline-secondary" type="button" 
 	  id="button-addon2">
@@ -91,7 +91,7 @@
 	  <input type="text" class="form-control" placeholder="변경할 교수진"
 	   aria-label="Recipient's username" aria-describedby="button-addon2"
 	   name = "updatelecture1" value = "">
-	   <input type="hidden" name = "index_2" value="<%=lectureInfo.getIndexId()-1%>" required>
+	   <input type="hidden" name = "index_2" value="<%=lectureInfo.getIndexId()%>" required>
 	 
 	  <button class="btn btn-outline-secondary" type="button" 
 	  	id="button-addon3">변경하기</button>
@@ -136,7 +136,7 @@
 		document.getElementById('deleteButton').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.deleteButton1
-			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()-1%>"){
+			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
 				confirm('강의를 삭제하시겠습니까?')
 			
 				form.updatelecture2.focus();

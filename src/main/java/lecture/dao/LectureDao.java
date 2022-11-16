@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecture.dto.LectureInfo;
-import lecture.dto.StudentInfo;
 
 
 public class LectureDao {
@@ -40,7 +39,7 @@ public class LectureDao {
 	}
 	
 	//DB연결해제
-	public void closeConnect() {
+	public void disConnect() {
 		try {
 			if(rs != null) {
 				rs.close();	
@@ -84,7 +83,7 @@ public class LectureDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeConnect();
+			disConnect();
 		}
 	}
 	
@@ -120,7 +119,7 @@ public class LectureDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeConnect();
+			disConnect();
 		}
 		
 		return lectureInfoList;
@@ -163,7 +162,7 @@ public class LectureDao {
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeConnect();
+			disConnect();
 		}
 		
 
@@ -188,22 +187,31 @@ public class LectureDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeConnect();
+			disConnect();
 		}
 		
 		return result;
 	}
 	
 	public LectureInfo selectPersonInfoListByIndexId(int indexId){
+
 		String sql = "SELECT * FROM lecture_info WHERE indexId=?";
+
 		LectureInfo lectureInfo = null;
+
 		try{
+
 			connect();
+
 			psmt = conn.prepareStatement(sql);
+
 			psmt.setInt(1, indexId);
+
 			rs = psmt.executeQuery();
-		
+
+			
 			lectureInfo = new LectureInfo();
+
 			if(rs.next()) {
 
 				lectureInfo.setIndexId(rs.getInt("indexId"));
@@ -213,58 +221,21 @@ public class LectureDao {
 				lectureInfo.setClassTime(rs.getString("classTime"));
 				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				lectureInfo.setProfessor(rs.getString("professor"));
+
 			}
+
 			
-		
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			closeConnect();
+			disConnect();
 		}
 		
 
 		return lectureInfo;
 	}
 	
-	public List<LectureInfo> professorInfo(){
-		String sql = "SELECT indexId,department, "
-				+" subjectNumber, subjectName, "
-				+" classTime, lectureRoom, professor "
-				+ "FROM lecture_info "
-				+ "WHERE professor = (SELECT pf_name FROM test_prof "
-				+ "WHERE pf_no = (SELECT pf_id FROM login_prof))";
-		List<LectureInfo> lectureInfoList = null;
-		try{
-			
-			connect();
-			psmt = conn.prepareStatement(sql);
-			rs = psmt.executeQuery();
-			
-			
-			lectureInfoList = new ArrayList<LectureInfo>();
-			while(rs.next()) {
-				LectureInfo lectureInfo = new LectureInfo();
-				lectureInfo.setIndexId(rs.getInt("indexId"));
-				lectureInfo.setDepartment(rs.getString("department"));
-				lectureInfo.setSubjectNumber(rs.getString("subjectNumber"));
-				lectureInfo.setSubjectName(rs.getString("subjectName"));
-				lectureInfo.setClassTime(rs.getString("classTime"));
-				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
-				lectureInfo.setProfessor(rs.getString("professor"));
-				System.out.println(rs.getString("professor"));
-				lectureInfoList.add(lectureInfo);
-			}
-			
-			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			closeConnect();
-		}
-		
-		return lectureInfoList;
-	}
 	//--회원 정보 검색
 	public List<LectureInfo> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
 	      List<LectureInfo> list = new ArrayList<LectureInfo>();
@@ -291,45 +262,13 @@ public class LectureDao {
 	      } catch(Exception e) {
 	         e.printStackTrace();
 	      }finally {
-				closeConnect();
+	    	  disConnect();
 //				System.out.println(list.size());
 			}
 	      return list;
 	   }
 	
-	public List<StudentInfo> showStudent(int indexId){
-		List<StudentInfo> list = new ArrayList<StudentInfo>();
-		String sql = "select u.sd_name, u.sd_email, u.sd_pn "
-				+ "from test_user_dept t, test_user u "
-				+ "where t.user_id = u.sd_id and dept_id = ?+1";
-		StudentInfo studentInfo = null;
-		try{
-			connect();
-			System.out.println(indexId);
-			psmt = conn.prepareStatement(sql);
-			psmt.setInt(1, indexId);
-			rs = psmt.executeQuery();
-		
-			while(rs.next()) {
-				studentInfo = new StudentInfo();
-				studentInfo.setName(rs.getString("SD_NAME"));
-				studentInfo.setEmail(rs.getString("SD_EMAIL"));
-				studentInfo.setPn(rs.getString("SD_PN"));
-				list.add(studentInfo);//list에 해당 인스턴스를 담는다.
-				System.out.println(rs.getString("SD_EMAIL"));
-				System.out.println(rs.getString("SD_PN"));
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			closeConnect();
-		}
-		
-		System.out.println(list.get(0).getEmail());
-		System.out.println(list.get(1).getEmail());
-		return list;
-	}
-		
+	
 	
 	
 	
