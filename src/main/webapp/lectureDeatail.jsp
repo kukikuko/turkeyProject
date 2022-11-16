@@ -30,7 +30,7 @@
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
 		LectureDao lectureDao = new LectureDao();
-		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id+1));
+		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 	%>
 
 

@@ -2,11 +2,27 @@ package lecture.dto;
 
 import java.time.LocalDateTime;
 
-	// 생성자 DTO 부분 API 한글로된 키값을 파파고로 검색해서 적절하게 번역 후 적용
-	// 카멜타입으로 작성
+// 생성자 DTO 부분 API 한글로된 키값을 파파고로 검색해서 적절하게 번역 후 적용
+// 카멜타입으로 작성
 public class LectureInfo {
 	public int indexId;					//강의 인덱스번호
-										@Override
+	//학년도x
+	//학기x
+	//소속x
+	public String department;			//학과
+	public String subjectNumber;		//과목번호
+	//분반x
+	public String subjectName;			//과목명
+	//학점x
+	public String classTime;			//수업시간
+	public String lectureRoom;			//강의실
+	//시간x
+	public String professor;			//교수진(교수이름)
+	//수강생수x
+	//null값들어가있는게 소개글인듯해서 아직 보류
+
+
+	@Override
 	public String toString() {
 		return "LectureInfo [indexId=" + indexId + ", department=" + department + ", subjectNumber=" + subjectNumber
 				+ ", subjectName=" + subjectName + ", classTime=" + classTime + ", lectureRoom=" + lectureRoom
@@ -54,26 +70,13 @@ public class LectureInfo {
 	public void setProfessor(String professor) {
 		this.professor = professor;
 	}
-	//학년도x
-										//학기x
-										//소속x
-	public String department;			//학과
-	public String subjectNumber;		//과목번호
-										//분반x
-	public String subjectName;			//과목명
-										//학점x
-	public String classTime;			//수업시간
-	public String lectureRoom;			//강의실
-										//시간x
-	public String professor;			//교수진(교수이름)
-										//수강생수x
-										//null값들어가있는게 소개글인듯해서 아직 보류
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
 }

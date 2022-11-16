@@ -29,9 +29,6 @@
       <div class="navbar-nav">
         <a class="nav-link"  href="index.jsp">강의목록</a>
       </div>
-      <div class="navbar-nav">
-        <a class="nav-link"  href="login.jsp">로그인1234</a>
-      </div>
     </div>
   </div>
 </nav>

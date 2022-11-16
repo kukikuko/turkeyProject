@@ -18,33 +18,22 @@
 		String type = request.getParameter("chk_info");
 		int result = 0; 
 		out.println(type);
-		int loginResult = 0;
 		
 // 		result = personDao.profLogin(id, pw);
 		
 		if(type.equals("학생")) {
 			result = personDao.studentLogin(id, pw);
-			loginResult = 1;
 		} else if(type.equals("교수")) {
 			result = personDao.profLogin(id, pw);			
-			loginResult = 2;
 		}
 		
 		if(result > 0) {
-			if(loginResult == 1) {
-				personDao.deleteloginDb();
-				personDao.loginDb(id);
-				%>
-					<script>alert('학생 로그인 성공')</script>
-					<script>location.href = 'index.jsp?<%=id%>';</script>
-				<%		
-			} else if(loginResult == 2){ 
-				%>
-					<script>alert('교수 로그인 성공')</script>
-					<script>location.href = 'profDetail.jsp?<%=id%>';</script>
-				<%
-					personDao.deleteProf();
-					personDao.insertProf(id);
+	%>
+		<script>alert('로그인 성공')</script>
+		<script>location.href = 'index.jsp?<%=id%>';</script>
+	<%	
+		personDao.deleteloginDb();
+		personDao.loginDb(id);
 		} else if(result == 0) {
 	%>
 		<script>alert('로그인 실패1')</script>
@@ -54,12 +43,12 @@
 	%>
 		<script>alert('로그인 실패2')</script>
 		<script>location.href = "main.jsp"</script>
-	<%	
+	<%		
 		} else {
 	%>	
 		<script>alert('로그인 실패3')</script>
-	<%
-	}}; 
+	<%		
+		};
 	%>	
 </body>
 </html>

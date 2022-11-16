@@ -34,7 +34,7 @@
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
 		LectureDao lectureDao = new LectureDao();
-		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id+1));
+		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 		Lecture lecture = new Lecture();
 	%>
 
@@ -135,7 +135,7 @@
 		document.getElementById('deleteButton').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.deleteButton1
-			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()-1%>"){
+			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
 				confirm('강의를 삭제하시겠습니까?')
 			
 				form.updatelecture2.focus();
