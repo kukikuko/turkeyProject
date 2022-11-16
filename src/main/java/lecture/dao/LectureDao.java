@@ -9,16 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecture.dto.LectureInfo;
+import lecture.dto.StudentInfo;
 
 
 public class LectureDao {
 	
-	//DB ¿¬°áÇÊµå
+	//DB ì—°ê²°í•„ë“œ
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
 	
-	//DB¿¬°á
+	//DBì—°ê²°
 	public void connect() {
 		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String db_id = "scott";
@@ -38,7 +39,7 @@ public class LectureDao {
 		}
 	}
 	
-	//DB¿¬°áÇØÁ¦
+	//DBì—°ê²°í•´ì œ
 	public void disConnect() {
 		try {
 			if(rs != null) {
@@ -56,11 +57,11 @@ public class LectureDao {
 		}
 	}
 	
-	//°­ÁÂ API Á¤º¸ DB¿¡ INSERT ÇÏ´Âµ¥ »ç¿ëÇÑ Å¬·¡½º
+	//ê°•ì¢Œ API ì •ë³´ DBì— INSERT í•˜ëŠ”ë° ì‚¬ìš©í•œ í´ë˜ìŠ¤
 	public void insertLectureInfo(LectureInfo info) {
 		String sql = "INSERT INTO lecture_info "
-				+ "				VALUES ((select nvl(max(indexId),0) + 1 from lecture_info),?, ?, ?, (SELECT trim(NVL((SUBSTR( ? ,0, INSTR(?,'[')-1)),'Á¤º¸¾øÀ½')) FROM dual) "
-				+ "                , (SELECT NVL(SUBSTR(?, INSTR(?,'[')+1, INSTR(?,']')-INSTR(?,'[')-1),'°­ÀÇ½ÇÁ¤º¸¾øÀ½')  FROM dual) "
+				+ "				VALUES ((select nvl(max(indexId),0) + 1 from lecture_info),?, ?, ?, (SELECT trim(NVL((SUBSTR( ? ,0, INSTR(?,'[')-1)),'ì •ë³´ì—†ìŒ')) FROM dual) "
+				+ "                , (SELECT NVL(SUBSTR(?, INSTR(?,'[')+1, INSTR(?,']')-INSTR(?,'[')-1),'ê°•ì˜ì‹¤ì •ë³´ì—†ìŒ')  FROM dual) "
 				+ "                , ?)";
 		try {
 			connect();
@@ -236,8 +237,8 @@ public class LectureDao {
 		return lectureInfo;
 	}
 	
-	//--È¸¿ø Á¤º¸ °Ë»ö
-	public List<LectureInfo> getSearch(String searchField, String searchText){//Æ¯Á¤ÇÑ ¸®½ºÆ®¸¦ ¹Ş¾Æ¼­ ¹İÈ¯
+	//--íšŒì› ì •ë³´ ê²€ìƒ‰
+	public List<LectureInfo> getSearch(String searchField, String searchText){//íŠ¹ì •í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ì„œ ë°˜í™˜
 	      List<LectureInfo> list = new ArrayList<LectureInfo>();
 	      String sql ="select * from lecture_info WHERE "+searchField.trim();
 	      try {
@@ -256,7 +257,7 @@ public class LectureDao {
 	        	 lectureInfo.setClassTime(rs.getString("classTime"));
 	        	 lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 	        	 lectureInfo.setProfessor(rs.getString("professor"));
-	        	 list.add(lectureInfo);//list¿¡ ÇØ´ç ÀÎ½ºÅÏ½º¸¦ ´ã´Â´Ù.
+	        	 list.add(lectureInfo);//listì— í•´ë‹¹ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ë‹´ëŠ”ë‹¤.
 	         }
 				
 	      } catch(Exception e) {
@@ -269,9 +270,79 @@ public class LectureDao {
 	   }
 	
 	
+	public List<LectureInfo> professorInfo(){
+		String sql = "SELECT indexId,department, "
+				+" subjectNumber, subjectName, "
+				+" classTime, lectureRoom, professor "
+				+ "FROM lecture_info "
+				+ "WHERE professor = (SELECT pf_name FROM test_prof "
+				+ "WHERE pf_no = (SELECT pf_id FROM login_prof))";
+		List<LectureInfo> lectureInfoList = null;
+		try{
+			
+			connect();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			
+			lectureInfoList = new ArrayList<LectureInfo>();
+			while(rs.next()) {
+				LectureInfo lectureInfo = new LectureInfo();
+				lectureInfo.setIndexId(rs.getInt("indexId"));
+				lectureInfo.setDepartment(rs.getString("department"));
+				lectureInfo.setSubjectNumber(rs.getString("subjectNumber"));
+				lectureInfo.setSubjectName(rs.getString("subjectName"));
+				lectureInfo.setClassTime(rs.getString("classTime"));
+				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
+				lectureInfo.setProfessor(rs.getString("professor"));
+				System.out.println(rs.getString("professor"));
+				lectureInfoList.add(lectureInfo);
+			}
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+		return lectureInfoList;
+	}
 	
-	
-	
+	public List<StudentInfo> showStudent(int indexId){
+		List<StudentInfo> list = new ArrayList<StudentInfo>();
+		String sql = "select u.sd_name, u.sd_email, u.sd_pn "
+				+ "from test_user_dept t, test_user u "
+				+ "where t.user_id = u.sd_id and dept_id = ?";
+		StudentInfo studentInfo = null;
+		try{
+			connect();
+			System.out.println(indexId);
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, indexId);
+			rs = psmt.executeQuery();
+			System.out.println(rs);
+			while(rs.next()) {
+				studentInfo = new StudentInfo();
+				studentInfo.setName(rs.getString("SD_NAME"));
+				studentInfo.setEmail(rs.getString("SD_EMAIL"));
+				studentInfo.setPn(rs.getString("SD_PN"));
+				list.add(studentInfo);//listï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½Â´ï¿½.
+				System.out.println(rs.getString("SD_EMAIL"));
+				System.out.println(rs.getString("SD_PN"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		System.out.println("---");
+		System.out.println(list);
+		System.out.println(list.get(0).getEmail());
+		System.out.println(list.get(1).getEmail());
+		return list;
+	}
 	
 	
 	
