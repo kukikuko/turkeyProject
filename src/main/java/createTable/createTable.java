@@ -63,6 +63,15 @@ public class createTable {
 		sd_pnvarchar2(128)
 	);
 
+	--강의개설 테이블
+	create table create_lecture
+	(
+    subjectname varchar2(128),
+    classtime varchar2(128),
+    lectureroom varchar2(128),
+    department varchar2(128),
+    professor varchar2(128)
+	);
 */
 	
 	
