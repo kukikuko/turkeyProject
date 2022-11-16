@@ -21,12 +21,10 @@
 	<%
 	LectureDao lectureDao = new LectureDao();
 	List<LectureInfo> lectureInfoList = lectureDao.professorInfo();
-	
 	%>
-	
 	<h3><%=lectureInfoList.get(0).getProfessor()%></h3>
 	<h5>교수님의 강의</h5>
-	<div  style = "text-align: right"><button onclick="location.href='addLectureProfessor.jsp?indexId=<%lectureInfoList.get(0).getIndexId();%>'">강의 개설</button></div>
+
 	<table class="table">
 		<thead>
 			<tr>

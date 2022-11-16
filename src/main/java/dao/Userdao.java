@@ -98,7 +98,7 @@ public class Userdao {
 	}
 	
 	public int profLogin(String userID, String userPassword) {
-		String SQL = "SELECT pf_pw FROM TEST_PROF WHERE pf_id =?";
+		String SQL = "SELECT pf_no FROM TEST_PROF WHERE pf_no =?";
 		try {
 			connect();
 
