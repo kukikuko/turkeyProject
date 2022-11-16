@@ -17,6 +17,7 @@ public class LectureDao {
 	Connection conn = null;
 	PreparedStatement psmt = null;
 	ResultSet rs = null;
+	
 	//DB연결
 	public void connect() {
 		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl";
@@ -36,6 +37,7 @@ public class LectureDao {
 			e.printStackTrace();
 		}
 	}
+	
 	//DB연결해제
 	public void closeConnect() {
 		try {
@@ -53,6 +55,7 @@ public class LectureDao {
 			e.printStackTrace();
 		}
 	}
+	
 	//강좌 API 정보 DB에 INSERT 하는데 사용한 클래스
 	public void insertLectureInfo(LectureInfo info) {
 		String sql = "INSERT INTO lecture_info "
@@ -83,6 +86,7 @@ public class LectureDao {
 			closeConnect();
 		}
 	}
+	
 	
 	public List<LectureInfo> selectLectureInfoList(){
 		String sql = "SELECT indexId,department, "
@@ -119,6 +123,74 @@ public class LectureDao {
 		}
 		
 		return lectureInfoList;
+	}
+	
+	public List<LectureInfo> selectSugangLectureInfoList(){
+		
+		String sql = " select li.indexId, li.department, li.subjectNumber, li.subjectName, li.classTime, li.LectureRoom, li.professor "
+				+ " from lecture_info li, test_user_dept td, login_user lu "
+				+ " where li.indexid = td.dept_id and td.user_id = lu.user_id ";
+		
+		List<LectureInfo> lectureInfoList = null;
+
+		try{
+
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			
+			lectureInfoList = new ArrayList<LectureInfo>();
+
+			while(rs.next()) {
+				LectureInfo lectureInfo = new LectureInfo();
+				lectureInfo.setIndexId(rs.getInt("indexId"));
+				lectureInfo.setDepartment(rs.getString("department"));
+				lectureInfo.setSubjectNumber(rs.getString("subjectNumber"));
+				lectureInfo.setSubjectName(rs.getString("subjectName"));
+				lectureInfo.setClassTime(rs.getString("classTime"));
+				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
+				lectureInfo.setProfessor(rs.getString("professor"));
+
+				lectureInfoList.add(lectureInfo);
+			}
+
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnect();
+		}
+		
+
+		return lectureInfoList;
+	}
+	
+	
+	
+	public int deleteLectureInfoById(int id) {
+		String sql = " delete from test_user_dept "
+				+ " where user_id = (select user_id from login_user) and dept_id=? ";
+		int result = 0;
+		
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, id);			
+			
+			result = psmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeConnect();
+		}
+		
+		return result;
 	}
 	
 	public LectureInfo selectPersonInfoListByIndexId(int indexId){
@@ -191,6 +263,7 @@ public class LectureDao {
 	         e.printStackTrace();
 	      }finally {
 				closeConnect();
+//				System.out.println(list.size());
 			}
 	      return list;
 	   }
