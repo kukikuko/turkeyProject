@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>수강신청 유효성검사</title>
 </head>
 <body>
 	<%
@@ -24,15 +24,38 @@
 		
 		List<LectureInfo> lectureInfoList = lectureDao.selectSugangLectureInfoList();
 		List<classTimeInfo> ciList = lectureDao.selectClassTimeLectureInfoList();
-		ci = lectureDao.selectClassTimeByIndexId(id);		
+		ci = lectureDao.selectClassTimeByIndexId(id);
+		List<LectureInfo> subNumList = lectureDao.selectSubjectNumberinfoList();
+		LectureInfo subNum = lectureDao.selectSubjectNumberByIndexId(id);
+		
+		boolean sn = false;
+		int a = 0;
+		for(int i=0; i<subNumList.size(); i++){
+			if(subNumList.get(i).getSubjectNumber().equals(subNum.getSubjectNumber())){
+				sn=true;
+				break;
+			}
+		}
+		out.println(sn);
+		if(sn==true) {
+	%>
+			<script>
+				alert('같은 강의는 신청 할 수 없습니다.')
+				location.href = "index.jsp"
+			</script>
+	<%		
+			}
+		
+		
 		
 		boolean is = false;
 		int addStTime = ci.getA1() * 1000 + ci.getA2();
-		int addEdTime = ci.getB1() * 1000 + ci.getB2();
-
+		int addEdTime = ci.getB1() * 1000 + ci.getB2();		
+		
 		for(int i=0; i<ciList.size(); i++) {
 			int stTime = ciList.get(i).getA1() * 1000 + ciList.get(i).getA2();
 			int edTime = ciList.get(i).getB1() * 1000 + ciList.get(i).getB2();
+			
 			if(ciList.get(i).getFirst().equals(ci.getFirst())) {
 				if(addStTime <= stTime && stTime <= addEdTime) {
 					is = true;
@@ -80,22 +103,18 @@
 		}
 		
 		out.println(is);
-		if(is == false) {
+		out.println(sn);
+		if(is == false && sn==false) {
 		int result = personDao.insertDept(id);
 		if(result > 0) {
 	%>
-	<script>alert('추가 성공')</script>
+			<script>alert('추가 성공')</script>
 	<%		
-		} else {
-	%>
-			<script>alert('같은 강의는 신청 할 수 없습니다.')</script>
-		
-	<%		
-			}
+			} 
 		}  else {
 	%>
 			<script>alert('시간이 중복된 강의는 신청 할 수 없습니다.')</script>
-	<% } %>
+	<%	} %>
 	<script>location.href = "index.jsp"</script>
 </body>
 </html>

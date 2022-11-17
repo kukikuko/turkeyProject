@@ -344,6 +344,7 @@ public class LectureDao {
 		return list;
 	}
 	
+	//저장 되어있는 데이터 시간자르는 메서드
 	public List<classTimeInfo> selectClassTimeLectureInfoList() {
 
 
@@ -353,6 +354,7 @@ public class LectureDao {
 				+ ", substr(classtime, instr(classtime, '~')+1, 2) B1 "
 				+ ", substr(classtime, instr(classtime, '~')+4, 2) B2  "
 				+ " from test_user_dept tsd,  lecture_info li where tsd.dept_id= li.indexId";
+		
 		List<classTimeInfo> classTimeInfoList = null;
 
 		try {
@@ -386,7 +388,7 @@ public class LectureDao {
 
 		return classTimeInfoList;
 	}
-	
+	//저장 하고싶은 데이터 시간자르는 메서드
 	public classTimeInfo selectClassTimeByIndexId(int indexId) {
 
 		String sql = "select substr(classtime, 0, 1) A, substr(classtime, instr(classtime, ',')+1, 1) B, "
@@ -430,6 +432,79 @@ public class LectureDao {
 
 		return ci;
 	}
+
+	//저장 되어있는 데이터 subjectNumber 불러오는 메서드
+	public List<LectureInfo> selectSubjectNumberinfoList(){
+		String sql = " select li.subjectnumber "
+					+" from test_user_dept tsd,  lecture_info li "
+					+" where tsd.dept_id= li.indexId ";
+		
+		List<LectureInfo> lectureInfoList = null;
+		
+		try {
+			connect();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			lectureInfoList = new ArrayList<LectureInfo>();
+			
+			while(rs.next()) {
+				LectureInfo li = new LectureInfo();
+				li.setSubjectNumber(rs.getString("subjectNumber"));
+				System.out.println(li.getSubjectNumber());
+				lectureInfoList.add(li);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return lectureInfoList;
+	}
+	
+	//저장 하고싶은 데이터 subjectNumber 불러오는 메서드
+	public LectureInfo selectSubjectNumberByIndexId(int indexId) {
+
+		String sql = "select subjectnumber from lecture_info where indexId = ?";
+
+		LectureInfo li = null;
+
+		try {
+
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setInt(1, indexId);
+
+			rs = psmt.executeQuery();
+
+			li = new LectureInfo();
+
+			if (rs.next()) {
+				
+				li.setSubjectNumber(rs.getString("subjectNumber"));
+				System.out.println(li.getSubjectNumber());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return li;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
