@@ -10,6 +10,7 @@ import java.util.List;
 
 import lecture.dto.LectureInfo;
 import lecture.dto.StudentInfo;
+import lecture.dto.classTimeInfo;
 
 
 public class LectureDao {
@@ -269,7 +270,6 @@ public class LectureDao {
 	      return list;
 	   }
 	
-	
 	public List<LectureInfo> professorInfo(){
 		String sql = "SELECT indexId,department, "
 				+" subjectNumber, subjectName, "
@@ -344,7 +344,92 @@ public class LectureDao {
 		return list;
 	}
 	
+	public List<classTimeInfo> selectClassTimeLectureInfoList() {
+
+
+		String sql = "select substr(li.classtime, 0, 1) A, substr(li.classtime, instr(li.classtime, ',')+1, 1) B, "
+				+ " substr(classtime, instr(classtime, ' ')+1, 2) A1 "
+				+ ", substr(classtime, instr(classtime, ' ')+4, 2) A2 "
+				+ ", substr(classtime, instr(classtime, '~')+1, 2) B1 "
+				+ ", substr(classtime, instr(classtime, '~')+4, 2) B2  "
+				+ " from test_user_dept tsd,  lecture_info li where tsd.dept_id= li.indexId";
+		List<classTimeInfo> classTimeInfoList = null;
+
+		try {
+
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+
+			rs = psmt.executeQuery();
+
+			classTimeInfoList = new ArrayList<classTimeInfo>();
+
+			while (rs.next()) {
+				classTimeInfo ci = new classTimeInfo();
+				ci.setFirst(rs.getString("A"));
+				ci.setSecond(rs.getString("B"));
+				ci.setA1(Integer.parseInt(rs.getString("A1")));
+				ci.setA2(Integer.parseInt(rs.getString("A2")));
+				ci.setB1(Integer.parseInt(rs.getString("B1")));
+				ci.setB2(Integer.parseInt(rs.getString("B2")));
+				System.out.println(ci.getFirst());
+				System.out.println(ci.getSecond());
+				classTimeInfoList.add(ci);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return classTimeInfoList;
+	}
 	
+	public classTimeInfo selectClassTimeByIndexId(int indexId) {
+
+		String sql = "select substr(classtime, 0, 1) A, substr(classtime, instr(classtime, ',')+1, 1) B, "
+				     +" substr(classtime, instr(classtime, ' ')+1, 2) A1 "
+				     + ", substr(classtime, instr(classtime, ' ')+4, 2) A2 "
+				     + ", substr(classtime, instr(classtime, '~')+1, 2) B1 "
+				     + ", substr(classtime, instr(classtime, '~')+4, 2) B2 from lecture_info where indexId = ?";
+
+		classTimeInfo ci = null;
+
+		try {
+
+			connect();
+
+			psmt = conn.prepareStatement(sql);
+
+			psmt.setInt(1, indexId);
+
+			rs = psmt.executeQuery();
+
+			ci = new classTimeInfo();
+
+			if (rs.next()) {
+				
+				ci.setFirst(rs.getString("A"));
+				ci.setSecond(rs.getString("B"));
+				ci.setA1(Integer.parseInt(rs.getString("A1")));
+				ci.setA2(Integer.parseInt(rs.getString("A2")));
+				ci.setB1(Integer.parseInt(rs.getString("B1")));
+				ci.setB2(Integer.parseInt(rs.getString("B2")));
+				System.out.println(ci.getFirst());
+				System.out.println(ci.getSecond());
+				System.out.println(ci.getA1());
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return ci;
+	}
 	
 	
 }
