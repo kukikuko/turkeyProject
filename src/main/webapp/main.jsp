@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.Userdao"%>
-<%
-request.setCharacterEncoding("UTF-8");
-%>
+<%request.setCharacterEncoding("UTF-8");%>
 <link href="MainCss.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
@@ -33,13 +31,14 @@ request.setCharacterEncoding("UTF-8");
 							<input id="check" type="checkbox" class="check" checked>
 							<label for="check"><span class="icon"></span> Keep me
 								Signed in</label>
+						<input type="radio" name="chk_info" value="학생" checked>학생 
+						<input type="radio" name="chk_info" value="교수">교수
+						<input type="radio" name="chk_info" value="관리자">관리자
 						</div>
 						<div class="group">
 							<input type="submit" class="button" value="Sign In">
 						</div>
-						<div class="hr"></div>
-						<div class="foot-lnk">
-							<a href="#forgot">Forgot Password?</a>
+						<div class="hr">
 						</div>
 					</div>
 				</form>
