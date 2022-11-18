@@ -1,5 +1,7 @@
 <%@page import="lecture.dto.LectureInfo"%>
 <%@page import="lecture.dao.LectureDao"%>
+<%@page import="dao.Userdao"%>
+<%@page import="lecture.dto.ProfessorInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="java.util.*"%>
@@ -21,10 +23,17 @@
 	<%
 	LectureDao lectureDao = new LectureDao();
 	List<LectureInfo> lectureInfoList = lectureDao.professorInfo();
+	
+	
+	Userdao ud = new Userdao();
+	int profno = ud.selectLoginProf();		
+	
 	%>
 	<h3><%=lectureInfoList.get(0).getProfessor()%></h3>
 	<h5>교수님의 강의</h5>
-
+	<div style = "text-align : right">
+	<button onclick = "location.href ='addLectureProfessor.jsp?profno=<%=profno%>'">강의 개설</button>
+	</div>
 	<table class="table">
 		<thead>
 			<tr>

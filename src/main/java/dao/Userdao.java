@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecture.dto.LectureInfo;
+import lecture.dto.ProfessorInfo;
 
 public class Userdao {
 
@@ -52,7 +53,7 @@ public class Userdao {
 
 		int result = 0;
 
-		String SQL = "INSERT INTO TEST_USER VALUES (?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO turkey_USER VALUES (?, ?, ?, ?, ?,18)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -61,6 +62,7 @@ public class Userdao {
 			psmt.setString(3, user.getUserName());
 			psmt.setString(4, user.getUserEmail());
 			psmt.setString(5, user.getUserPhoneNumber());
+			
 			return psmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,7 +74,7 @@ public class Userdao {
 	}
 
 	public int studentLogin(String userID, String userPassword) {
-		String SQL = "SELECT sd_pw FROM TEST_USER WHERE sd_id =?";
+		String SQL = "SELECT sd_pw FROM turkey_USER WHERE sd_id =?";
 		try {
 			connect();
 
@@ -98,7 +100,32 @@ public class Userdao {
 	}
 	
 	public int profLogin(String userID, String userPassword) {
-		String SQL = "SELECT pf_no FROM TEST_PROF WHERE pf_no =?";
+		String SQL = "SELECT pf_no FROM turkey_PROF WHERE pf_no =?";
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				System.out.println(rs.getString(1));
+				if (rs.getString(1).equals(userPassword)) {
+					return 1; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
+				} else
+					return 0; // 占쏙옙橘占싫� 占쏙옙占쏙옙치
+			}
+			return -1; // 占쏙옙占싱듸옙 占쏙옙占쏙옙
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return -2; // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
+	}
+	
+	public int adminLogin(String userID, String userPassword) {
+		String SQL = "SELECT admin_pw FROM turkey_admin WHERE admin_id = ?";
 		try {
 			connect();
 
@@ -126,8 +153,8 @@ public class Userdao {
 
 		int result = 0;
 
-		String SQL = "insert into login_user "
-				+ "values(?, (select sd_name from test_user where sd_id = ?))";
+		String SQL = "insert into turkey_login_user "
+				+ "values(?, (select sd_name from turkey_user where sd_id = ?))";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -146,8 +173,8 @@ public class Userdao {
 	public int insertDept(int id) {
 		int result = 0;
 
-		String SQL = "insert into test_user_dept (user_id, dept_no, dept_id) "
-				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ?)";
+		String SQL = "insert into turkey_user_dept "
+				+ "values((select user_id from turkey_login_user), (select NVL(MAX(dept_no), 0) +1 from turkey_user_dept where user_id = (select user_id from turkey_login_user)), ?)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -158,14 +185,14 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
-
+		
 		return result;
 	}
 	
 	public int deleteloginDb() {
 		int result = 0;
 
-		String SQL = "delete from login_user";
+		String SQL = "delete from turkey_login_user";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -181,7 +208,7 @@ public class Userdao {
 
 	public int insertProf(String userID) {
 		int result = 0;
-		String SQL = "insert into login_prof values(?)";
+		String SQL = "insert into turkey_login_prof values(?)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -197,7 +224,7 @@ public class Userdao {
 	
 	public int deleteProf() {
 		int result = 0;
-		String SQL = "delete from login_prof ";
+		String SQL = "delete from turkey_login_prof ";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -212,13 +239,13 @@ public class Userdao {
 
 	public void updateStudent(String name, String email, String pn) {
 
-		String SQL = "update test_user "
+		String SQL = "update turkey_user "
 				+ "set "
 				+ "sd_name = ?, "
 				+ "sd_email = ?, "
 				+ "sd_pn = ? "
 				+ "where sd_id = "
-				+ "(select user_id from login_user)";
+				+ "(select user_id from turkey_login_user)";
 				
 		try {
 			connect();
@@ -237,8 +264,8 @@ public class Userdao {
 	}
 
 	public User selectStudent(){
-		String sql = "select * from test_user "
-				+ "where sd_id = (select user_id from login_user)";
+		String sql = "select * from turkey_user "
+				+ "where sd_id = (select user_id from turkey_login_user)";
 		
 		User user = null;
 		try{
@@ -289,8 +316,58 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
-
 	}
 	
+	public int selectLoginProf(){
+		String sql = "select * from turkey_login_prof";
+		
+		int pfNo = 0;
+		try{
+			connect();
+			psmt = conn.prepareStatement(sql);
+	
+			rs = psmt.executeQuery();
+		
+			if(rs.next()) {
 
+				pfNo = rs.getInt("PF_ID");
+			}
+			
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return pfNo;
+	}
+
+	public void insertCreateLecture(String subjectName, String classTime, String lectureRoom, String subjectNumber) {
+		
+		String SQL = "INSERT INTO turkey_create_lecture "
+				+ "VALUES(?, "
+				+ " ?, "
+				+ " ?, "
+				+ "(select t.pf_dept from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
+				+ "(select t.pf_name from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
+				+ " (SELECT nvl(max(lectureno)+1, 1) FROM turkey_create_lecture), "
+				+ "?)";
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, subjectName);
+			psmt.setString(2, classTime);
+			psmt.setString(3, lectureRoom);
+			psmt.setString(4, subjectNumber);
+			
+			psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
+	
+	
+	
 }

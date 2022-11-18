@@ -47,6 +47,8 @@ List<LectureInfo> lectureInfoList = lectureDao.selectSugangLectureInfoList();
       <th scope="col">수업시간</th>
       <th scope="col">강의실</th>      
       <th scope="col">교수진</th>
+	  <th scope="col">학점</th>      
+      <th scope="col">정원</th>
     </tr>
   </thead>
   <tbody>
@@ -64,6 +66,10 @@ List<LectureInfo> lectureInfoList = lectureDao.selectSugangLectureInfoList();
     	    	<td><%=info.getClassTime()%></td>
     	    	<td><%=info.getLectureRoom()%></td>
     	    	<td><%=info.getProfessor()%></td>
+    	    	<td><%=info.getLectureCredit()%></td>
+    	    	<td><%=info.getSubscriptioLimit()%></td>
+    	    	
+    	    	
     	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureCancel_proc.jsp?indexId=<%=info.getIndexId()%>'">신청취소</button><td>
     	    </tr>
     <%    			

@@ -43,6 +43,9 @@
 				<th scope="col">수업시간</th>
 				<th scope="col">강의실</th>
 				<th scope="col">교수진</th>
+			    <th scope="col">학점</th>     
+			    <th scope="col">잔여인원</th>      
+      			<th scope="col">정원</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -55,6 +58,9 @@
 				<td><%=lectureInfo.getClassTime()%></td>
 				<td><%=lectureInfo.getLectureRoom()%></td>
 				<td><%=lectureInfo.getProfessor()%></td>
+				<td><%=lectureInfo.getLectureCredit()%></td>
+				<td><%=lectureInfo.getSubscriptioLimit() - lectureInfo.getCurrentStudent()%></td>
+				<td><%=lectureInfo.getSubscriptioLimit()%></td>
 				<td>
 					<form name="deptForm" action="addDept_proc.jsp" method="post">
 						<button type="submit" class="btn btn-primary">수강신청</button>

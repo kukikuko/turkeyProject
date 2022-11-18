@@ -15,7 +15,11 @@
 		
 		int index = Integer.parseInt(request.getParameter("index_3"));
 		UpdateLecture up = new UpdateLecture();
+		
 		up.deleteLecture(index);
+		
+
+		
 	%>
 	
 			<script>

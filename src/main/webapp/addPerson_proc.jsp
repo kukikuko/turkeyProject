@@ -19,6 +19,7 @@
 		user.setUserName(request.getParameter("userName")) ;
 		user.setUserEmail(request.getParameter("userEmail")) ;
 		user.setUserPhoneNumber(request.getParameter("userPN")) ;
+		
 	
 		int result = personDao.join(user);
 		

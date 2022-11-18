@@ -46,7 +46,7 @@ public class UpdateLecture {
 
 	public void updateLecture(String name, int index) {
 
-		String SQL = "UPDATE lecture_info SET " + "subjectName = ?" + "WHERE indexid = ?	";
+		String SQL = "UPDATE turkey_lecture_info SET " + "subjectName = ?" + "WHERE indexid = ?	";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -63,7 +63,7 @@ public class UpdateLecture {
 	}
 	public void updateProfessor(String name, int index) {
 
-		String SQL = "UPDATE lecture_info SET " + "professor = ?" + "WHERE indexid = ?	";
+		String SQL = "UPDATE turkey_lecture_info SET " + "professor = ?" + "WHERE indexid = ?	";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -80,7 +80,7 @@ public class UpdateLecture {
 	}
 	public void deleteLecture(int index) {
 
-		String SQL = "delete from lecture_info "
+		String SQL = "delete from turkey_lecture_info "
 				+ "where indexid = ?";
 		try {
 			connect();
