@@ -89,6 +89,9 @@
       <th scope="col">수업시간</th>
       <th scope="col">강의실</th>      
       <th scope="col">교수진</th>
+      <th scope="col">학점</th>
+      <th scope="col">잔여인원</th>      
+      <th scope="col">정원</th>
     </tr>
   </thead>
   <tbody>
@@ -106,8 +109,10 @@
     	    	<td><%=info.getClassTime()%></td>
     	    	<td><%=info.getLectureRoom()%></td>
     	    	<td><%=info.getProfessor()%></td>
+    	    	<td><%=info.getLectureCredit()%></td>
+    	    	<td><%=info.getSubscriptioLimit() - info.getCurrentStudent()%></td>
+    	    	<td><%=info.getSubscriptioLimit()%></td>
     	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureDeatail.jsp?indexId=<%=info.getIndexId()%>'">수강신청</button><td>
-    	    	<td><button type="button" class="btn btn-primary" onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()%>'">수정하기</button><td>
     	    </tr>
     <%    			
     		}

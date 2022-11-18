@@ -16,6 +16,9 @@
 		LectureDao lectureDao = new LectureDao();
 		int result = lectureDao.deleteLectureInfoById(id);
 		if(result >0){
+			
+			lectureDao.MinusCurrentStudent(id);
+		
 	%>
 		<script>
 			alert('삭제되었습니다')

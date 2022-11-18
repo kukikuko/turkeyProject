@@ -20,13 +20,15 @@ public class LectureInfo {
 	public String professor;			//교수진(교수이름)
 	//수강생수x
 	//null값들어가있는게 소개글인듯해서 아직 보류
+	public int lectureCredit;			//강의학점
+	public int subscriptioLimit;		//강의신청제한
+	public int currentStudent;			//현재수강학생 수
 
-
-	@Override
-	public String toString() {
-		return "LectureInfo [indexId=" + indexId + ", department=" + department + ", subjectNumber=" + subjectNumber
-				+ ", subjectName=" + subjectName + ", classTime=" + classTime + ", lectureRoom=" + lectureRoom
-				+ ", professor=" + professor + "]";
+	public int getCurrentStudent() {
+		return currentStudent;
+	}
+	public void setCurrentStudent(int currentStudent) {
+		this.currentStudent = currentStudent;
 	}
 	public int getIndexId() {
 		return indexId;
@@ -70,7 +72,26 @@ public class LectureInfo {
 	public void setProfessor(String professor) {
 		this.professor = professor;
 	}
-
+	public int getLectureCredit() {
+		return lectureCredit;
+	}
+	public void setLectureCredit(int lectureCredit) {
+		this.lectureCredit = lectureCredit;
+	}
+	public int getSubscriptioLimit() {
+		return subscriptioLimit;
+	}
+	public void setSubscriptioLimit(int subscriptioLimit) {
+		this.subscriptioLimit = subscriptioLimit;
+	}
+	@Override
+	public String toString() {
+		return "LectureInfo [indexId=" + indexId + ", department=" + department + ", subjectNumber=" + subjectNumber
+				+ ", subjectName=" + subjectName + ", classTime=" + classTime + ", lectureRoom=" + lectureRoom
+				+ ", professor=" + professor + ", lectureCredit=" + lectureCredit + ", subscriptioLimit="
+				+ subscriptioLimit + "]";
+	}
+	
 
 
 

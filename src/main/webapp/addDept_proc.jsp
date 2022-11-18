@@ -1,3 +1,7 @@
+<%@page import="java.io.StringReader"%>
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="org.json.simple.parser.JSONParser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.Userdao"%>
@@ -19,14 +23,16 @@
 		int id = Integer.parseInt(request.getParameter("id"));
 		LectureDao lectureDao = new LectureDao();
 		LectureInfo lectureInfo = new LectureInfo();
+	
 		classTimeInfo ci = new classTimeInfo();
-		
+		User user = new User();
 		
 		List<LectureInfo> lectureInfoList = lectureDao.selectSugangLectureInfoList();
 		List<classTimeInfo> ciList = lectureDao.selectClassTimeLectureInfoList();
 		ci = lectureDao.selectClassTimeByIndexId(id);
 		List<LectureInfo> subNumList = lectureDao.selectSubjectNumberinfoList();
 		LectureInfo subNum = lectureDao.selectSubjectNumberByIndexId(id);
+		List<LectureInfo> plus = lectureDao.selectPlusLecture_creditList();
 		
 		boolean sn = false;
 		int a = 0;
@@ -45,7 +51,38 @@
 			</script>
 	<%		
 			}
+		if(subNum.getCurrentStudent() == subNum.getSubscriptioLimit()) {
+	%>
+			<script>
+				alert('정원이 초과되었습니다')
+				location.href = "index.jsp"
+			</script>
+	<%	
+		}
 		
+		
+		
+		boolean pl = false;
+		int temp1 = 0;
+		int temp2 = 18;
+		
+		for(int i = 0; i<plus.size(); i++){
+			temp1 +=  plus.get(i).lectureCredit;			
+			if(temp2 <= temp1){
+				pl=true;
+				break;
+			}
+		}
+		out.println(pl);
+		if(pl==true){
+	%>
+		<script>
+			alert('신청가능 학점을 초과했습니다.')
+			location.href = "index.jsp"
+		</script>
+	<%		
+			
+		}
 		
 		
 		boolean is = false;
@@ -104,12 +141,16 @@
 		
 		out.println(is);
 		out.println(sn);
-		if(is == false && sn==false) {
+		boolean tc = false;
+		if(is == false && sn==false && pl==false) {
 		int result = personDao.insertDept(id);
+		
 		if(result > 0) {
+		
 	%>
 			<script>alert('추가 성공')</script>
 	<%		
+			lectureDao.PlusCurrentStudent(id);
 			} 
 		}  else {
 	%>

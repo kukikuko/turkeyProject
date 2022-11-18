@@ -6,6 +6,7 @@ public class User {
 	public String UserName;
 	public String UserEmail;
 	public String UserPhoneNumber;
+	public int	  UserCredit;
 	
 	public String getUserID() {
 		return UserID;
@@ -36,6 +37,12 @@ public class User {
 	}
 	public void setUserPhoneNumber(String userPhoneNumber) {
 		UserPhoneNumber = userPhoneNumber;
+	}
+	public int getUserCredit() {
+		return UserCredit;
+	}
+	public void setUserCredit(int userCredit) {
+		UserCredit = userCredit;
 	}
 	
 	

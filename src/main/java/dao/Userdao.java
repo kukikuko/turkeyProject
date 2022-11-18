@@ -52,7 +52,7 @@ public class Userdao {
 
 		int result = 0;
 
-		String SQL = "INSERT INTO TEST_USER VALUES (?, ?, ?, ?, ?)";
+		String SQL = "INSERT INTO TEST_USER VALUES (?, ?, ?, ?, ?,18)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -61,6 +61,7 @@ public class Userdao {
 			psmt.setString(3, user.getUserName());
 			psmt.setString(4, user.getUserEmail());
 			psmt.setString(5, user.getUserPhoneNumber());
+			
 			return psmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
