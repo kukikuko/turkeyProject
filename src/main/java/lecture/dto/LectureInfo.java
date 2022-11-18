@@ -19,6 +19,7 @@ public class LectureInfo {
 	//시간x
 	public String professor;			//교수진(교수이름)
 	//수강생수x
+	public String grade;
 	//null값들어가있는게 소개글인듯해서 아직 보류
 	public int lectureCredit;			//강의학점
 	public int subscriptioLimit;		//강의신청제한
@@ -29,6 +30,13 @@ public class LectureInfo {
 	}
 	public void setCurrentStudent(int currentStudent) {
 		this.currentStudent = currentStudent;
+	}
+	
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	public int getIndexId() {
 		return indexId;

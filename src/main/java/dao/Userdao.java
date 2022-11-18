@@ -53,7 +53,7 @@ public class Userdao {
 
 		int result = 0;
 
-		String SQL = "INSERT INTO TEST_USER VALUES (?, ?, ?, ?, ?,18)";
+		String SQL = "INSERT INTO turkey_USER VALUES (?, ?, ?, ?, ?,18)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -74,7 +74,7 @@ public class Userdao {
 	}
 
 	public int studentLogin(String userID, String userPassword) {
-		String SQL = "SELECT sd_pw FROM TEST_USER WHERE sd_id =?";
+		String SQL = "SELECT sd_pw FROM turkey_USER WHERE sd_id =?";
 		try {
 			connect();
 
@@ -100,7 +100,7 @@ public class Userdao {
 	}
 	
 	public int profLogin(String userID, String userPassword) {
-		String SQL = "SELECT pf_no FROM TEST_PROF WHERE pf_no =?";
+		String SQL = "SELECT pf_no FROM turkey_PROF WHERE pf_no =?";
 		try {
 			connect();
 
@@ -125,7 +125,7 @@ public class Userdao {
 	}
 	
 	public int adminLogin(String userID, String userPassword) {
-		String SQL = "SELECT admin_pw FROM admin WHERE admin_id = ?";
+		String SQL = "SELECT admin_pw FROM turkey_admin WHERE admin_id = ?";
 		try {
 			connect();
 
@@ -153,8 +153,8 @@ public class Userdao {
 
 		int result = 0;
 
-		String SQL = "insert into login_user "
-				+ "values(?, (select sd_name from test_user where sd_id = ?))";
+		String SQL = "insert into turkey_login_user "
+				+ "values(?, (select sd_name from turkey_user where sd_id = ?))";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -173,8 +173,8 @@ public class Userdao {
 	public int insertDept(int id) {
 		int result = 0;
 
-		String SQL = "insert into test_user_dept "
-				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ?)";
+		String SQL = "insert into turkey_user_dept "
+				+ "values((select user_id from turkey_login_user), (select NVL(MAX(dept_no), 0) +1 from turkey_user_dept where user_id = (select user_id from turkey_login_user)), ?, '-')";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -192,7 +192,7 @@ public class Userdao {
 	public int deleteloginDb() {
 		int result = 0;
 
-		String SQL = "delete from login_user";
+		String SQL = "delete from turkey_login_user";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -208,7 +208,7 @@ public class Userdao {
 
 	public int insertProf(String userID) {
 		int result = 0;
-		String SQL = "insert into login_prof values(?)";
+		String SQL = "insert into turkey_login_prof values(?)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -224,7 +224,7 @@ public class Userdao {
 	
 	public int deleteProf() {
 		int result = 0;
-		String SQL = "delete from login_prof ";
+		String SQL = "delete from turkey_login_prof ";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -239,13 +239,13 @@ public class Userdao {
 
 	public void updateStudent(String name, String email, String pn) {
 
-		String SQL = "update test_user "
+		String SQL = "update turkey_user "
 				+ "set "
 				+ "sd_name = ?, "
 				+ "sd_email = ?, "
 				+ "sd_pn = ? "
 				+ "where sd_id = "
-				+ "(select user_id from login_user)";
+				+ "(select user_id from turkey_login_user)";
 				
 		try {
 			connect();
@@ -264,8 +264,8 @@ public class Userdao {
 	}
 
 	public User selectStudent(){
-		String sql = "select * from test_user "
-				+ "where sd_id = (select user_id from login_user)";
+		String sql = "select * from turkey_user "
+				+ "where sd_id = (select user_id from turkey_login_user)";
 		
 		User user = null;
 		try{
@@ -294,9 +294,32 @@ public class Userdao {
 
 		return user;
 	}
+		
+	public void updateStudentGrade(String grade, String userId, String deptId) {
+
+		String SQL = "update turkey_user_dept "
+				+ "set "
+				+ "dept_grade = ? "
+				+ "where user_id = ? "
+				+ "and dept_id = ?";
+				
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, grade);
+			psmt.setString(2, userId);
+			psmt.setString(3, deptId);
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
 	
 	public int selectLoginProf(){
-		String sql = "select * from login_prof";
+		String sql = "select * from turkey_login_prof";
 		
 		int pfNo = 0;
 		try{
@@ -316,20 +339,18 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
-		
-
 		return pfNo;
 	}
 
 	public void insertCreateLecture(String subjectName, String classTime, String lectureRoom, String subjectNumber) {
 		
-		String SQL = "INSERT INTO create_lecture "
+		String SQL = "INSERT INTO turkey_create_lecture "
 				+ "VALUES(?, "
 				+ " ?, "
 				+ " ?, "
-				+ "(select t.pf_dept from test_prof t where t.pf_no = (select * from login_prof)), "
-				+ "(select t.pf_name from test_prof t where t.pf_no = (select * from login_prof)), "
-				+ " (SELECT nvl(max(lectureno)+1, 1) FROM create_lecture), "
+				+ "(select t.pf_dept from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
+				+ "(select t.pf_name from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
+				+ " (SELECT nvl(max(lectureno)+1, 1) FROM turkey_create_lecture), "
 				+ "?)";
 		try {
 			connect();
