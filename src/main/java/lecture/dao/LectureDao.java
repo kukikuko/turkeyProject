@@ -327,9 +327,9 @@ public class LectureDao {
 	
 	public List<StudentInfo> showStudent(int indexId){
 		List<StudentInfo> list = new ArrayList<StudentInfo>();
-		String sql = "select u.sd_name, u.sd_email, u.sd_pn, t.dept_grade "
+		String sql = "select u.sd_name, u.sd_id, u.sd_email, u.sd_pn, t.dept_grade "
 				+ "from turkey_user_dept t, turkey_user u "
-				+ "where t.user_id = u.sd_id and dept_id = ?";
+				+ "where t.user_id = u.sd_id and t.dept_id = ?";
 		StudentInfo studentInfo = null;
 		try{
 			connect();
@@ -345,7 +345,7 @@ public class LectureDao {
 				studentInfo.setPn(rs.getString("SD_PN"));
 				studentInfo.setId(rs.getString("SD_ID"));
 				studentInfo.setGrade(rs.getString("DEPT_GRADE"));
-				list.add(studentInfo);//list�� �ش� �ν��Ͻ��� ��´�.
+				list.add(studentInfo);
 //				System.out.println(rs.getString("SD_EMAIL"));
 //				System.out.println(rs.getString("SD_PN"));
 			}
