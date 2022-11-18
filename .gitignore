@@ -1,0 +1,27 @@
+### Eclipse files ###
+#.metadata
+#bin/
+#tmp/
+#*.tmp
+#*.bak
+#*.swp
+#*~.nib
+#local.properties
+#.settings/
+#.loadpath
+#.recommenders
+
+# Eclipse Core
+#.project
+
+
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+
+# Package Files #
+#*.jar
+*.war
