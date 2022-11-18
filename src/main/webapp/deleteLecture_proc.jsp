@@ -17,6 +17,9 @@
 		UpdateLecture up = new UpdateLecture();
 		
 		up.deleteLecture(index);
+		
+
+		
 	%>
 	
 			<script>
