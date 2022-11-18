@@ -146,7 +146,7 @@ public class Userdao {
 	public int insertDept(int id) {
 		int result = 0;
 
-		String SQL = "insert into test_user_dept "
+		String SQL = "insert into test_user_dept (user_id, dept_no, dept_id) "
 				+ "values((select user_id from login_user), (select NVL(MAX(dept_no), 0) +1 from test_user_dept where user_id = (select user_id from login_user)), ?)";
 		try {
 			connect();
@@ -267,6 +267,30 @@ public class Userdao {
 
 		return user;
 	}
+		
+	public void updateStudentGrade(String grade, String userId, String deptId) {
 
+		String SQL = "update test_user_dept "
+				+ "set "
+				+ "dept_grade = ? "
+				+ "where user_id = ? "
+				+ "and dept_id = ?";
+				
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, grade);
+			psmt.setString(2, userId);
+			psmt.setString(3, deptId);
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+	}
+	
 
 }

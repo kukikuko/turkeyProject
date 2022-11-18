@@ -128,7 +128,7 @@ public class LectureDao {
 	
 	public List<LectureInfo> selectSugangLectureInfoList(){
 		
-		String sql = " select li.indexId, li.department, li.subjectNumber, li.subjectName, li.classTime, li.LectureRoom, li.professor "
+		String sql = " select li.indexId, li.department, li.subjectNumber, li.subjectName, li.classTime, li.LectureRoom, li.professor, td.dept_grade "
 				+ " from lecture_info li, test_user_dept td, login_user lu "
 				+ " where li.indexid = td.dept_id and td.user_id = lu.user_id ";
 		
@@ -154,7 +154,7 @@ public class LectureDao {
 				lectureInfo.setClassTime(rs.getString("classTime"));
 				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				lectureInfo.setProfessor(rs.getString("professor"));
-
+				lectureInfo.setGrade(rs.getString("dept_grade"));
 				lectureInfoList.add(lectureInfo);
 			}
 
@@ -312,7 +312,7 @@ public class LectureDao {
 	
 	public List<StudentInfo> showStudent(int indexId){
 		List<StudentInfo> list = new ArrayList<StudentInfo>();
-		String sql = "select u.sd_name, u.sd_email, u.sd_pn "
+		String sql = "select u.sd_name, u.sd_email, u.sd_pn, u.sd_id, t.dept_grade "
 				+ "from test_user_dept t, test_user u "
 				+ "where t.user_id = u.sd_id and dept_id = ?";
 		StudentInfo studentInfo = null;
@@ -322,25 +322,20 @@ public class LectureDao {
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, indexId);
 			rs = psmt.executeQuery();
-			System.out.println(rs);
 			while(rs.next()) {
 				studentInfo = new StudentInfo();
 				studentInfo.setName(rs.getString("SD_NAME"));
 				studentInfo.setEmail(rs.getString("SD_EMAIL"));
 				studentInfo.setPn(rs.getString("SD_PN"));
+				studentInfo.setId(rs.getString("SD_ID"));
+				studentInfo.setGrade(rs.getString("DEPT_GRADE"));
 				list.add(studentInfo);//list�� �ش� �ν��Ͻ��� ��´�.
-				System.out.println(rs.getString("SD_EMAIL"));
-				System.out.println(rs.getString("SD_PN"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			disConnect();
 		}
-		System.out.println("---");
-		System.out.println(list);
-		System.out.println(list.get(0).getEmail());
-		System.out.println(list.get(1).getEmail());
 		return list;
 	}
 	

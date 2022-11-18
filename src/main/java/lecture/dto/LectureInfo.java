@@ -19,6 +19,7 @@ public class LectureInfo {
 	//시간x
 	public String professor;			//교수진(교수이름)
 	//수강생수x
+	public String grade;
 	//null값들어가있는게 소개글인듯해서 아직 보류
 
 
@@ -27,6 +28,13 @@ public class LectureInfo {
 		return "LectureInfo [indexId=" + indexId + ", department=" + department + ", subjectNumber=" + subjectNumber
 				+ ", subjectName=" + subjectName + ", classTime=" + classTime + ", lectureRoom=" + lectureRoom
 				+ ", professor=" + professor + "]";
+	}
+	
+	public String getGrade() {
+		return grade;
+	}
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 	public int getIndexId() {
 		return indexId;

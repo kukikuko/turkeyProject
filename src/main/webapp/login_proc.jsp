@@ -45,7 +45,7 @@
 				<%
 					personDao.deleteProf();
 					personDao.insertProf(id);
-		} else if(result == 0) {
+		}} else if(result == 0) {
 	%>
 		<script>alert('로그인 실패1')</script>
 		<script>location.href = "main.jsp"</script>
@@ -59,7 +59,7 @@
 	%>	
 		<script>alert('로그인 실패3')</script>
 	<%
-	}}; 
+	}; 
 	%>	
 </body>
 </html>

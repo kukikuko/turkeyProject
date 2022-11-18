@@ -54,13 +54,13 @@ public class createTable {
 	
 	
 	--학생 테이블
-	create table test_student
+	create table test_user
 	(
 		sd_id varchar2(128),
 		sd_pw varchar2(128),
 		sd_name varchar2(128),
 		sd_email varchar2(128),
-		sd_pnvarchar2(128)
+		sd_pn varchar2(128)
 	);
 
 */
