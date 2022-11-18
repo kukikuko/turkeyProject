@@ -68,9 +68,12 @@ create table turkey_user_dept
 	    user_id varchar2(128),
 	    dept_no number,
 	    dept_id number,
+        dept_grade varchar2(3) default '-', 
         constraint turkey_user_dept_pk primary key(user_id, dept_no)
 );
 
+insert into turkey_admin
+values ('admin', 'admin');
 
 */
 	
