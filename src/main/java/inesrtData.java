@@ -54,23 +54,23 @@ public class inesrtData {
 //			isP = false;
 //		}
 
-//		JSONParser parser = new JSONParser();
-//		Reader reader = new FileReader("D:\\data.json", Charset.forName("UTF-8"));
-//		LectureDao lectureDao = new LectureDao(); 
-//		JSONArray arr = (JSONArray) parser.parse(reader);
-//		for(int i=0; i<arr.size(); i++) {
-//			JSONObject obj = (JSONObject) arr.get(i);
-//			LectureInfo Lectureinfo = new LectureInfo();
-//			
-//			Lectureinfo.department = (String) obj.get("학과");
-//			Lectureinfo.subjectNumber = (String) obj.get("과목번호");
-//			Lectureinfo.subjectName = (String) obj.get("과목명");
-//			Lectureinfo.classTime = (String) obj.get("수업시간/강의실");
-//			Lectureinfo.lectureRoom = (String) obj.get("수업시간/강의실");
-//			Lectureinfo.professor = (String) obj.get("교수진");
-//
-//			lectureDao.insertLectureInfo(Lectureinfo);
-//		}
+		JSONParser parser = new JSONParser();
+		Reader reader = new FileReader("D:\\data.json", Charset.forName("UTF-8"));
+		LectureDao lectureDao = new LectureDao(); 
+		JSONArray arr = (JSONArray) parser.parse(reader);
+		for(int i=0; i<arr.size(); i++) {
+			JSONObject obj = (JSONObject) arr.get(i);
+			LectureInfo Lectureinfo = new LectureInfo();
+			
+			Lectureinfo.department = (String) obj.get("학과");
+			Lectureinfo.subjectNumber = (String) obj.get("과목번호");
+			Lectureinfo.subjectName = (String) obj.get("과목명");
+			Lectureinfo.classTime = (String) obj.get("수업시간/강의실");
+			Lectureinfo.lectureRoom = (String) obj.get("수업시간/강의실");
+			Lectureinfo.professor = (String) obj.get("교수진");
+
+			lectureDao.insertLectureInfo(Lectureinfo);
+		}
 
 	}
 

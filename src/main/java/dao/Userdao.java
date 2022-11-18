@@ -174,7 +174,7 @@ public class Userdao {
 		int result = 0;
 
 		String SQL = "insert into turkey_user_dept "
-				+ "values((select user_id from turkey_login_user), (select NVL(MAX(dept_no), 0) +1 from turkey_user_dept where user_id = (select user_id from turkey_login_user)), ?)";
+				+ "values((select user_id from turkey_login_user), (select NVL(MAX(dept_no), 0) +1 from turkey_user_dept where user_id = (select user_id from turkey_login_user)), ?, '-')";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -294,6 +294,29 @@ public class Userdao {
 
 		return user;
 	}
+		
+	public void updateStudentGrade(String grade, String userId, String deptId) {
+
+		String SQL = "update turkey_user_dept "
+				+ "set "
+				+ "dept_grade = ? "
+				+ "where user_id = ? "
+				+ "and dept_id = ?";
+				
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, grade);
+			psmt.setString(2, userId);
+			psmt.setString(3, deptId);
+			psmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
 	
 	public int selectLoginProf(){
 		String sql = "select * from turkey_login_prof";
@@ -316,8 +339,6 @@ public class Userdao {
 		} finally {
 			disConnect();
 		}
-		
-
 		return pfNo;
 	}
 

@@ -8,6 +8,7 @@ public class Lecture {
 	public String classTime;
 	public String LectureRoom;
 	public String professor;
+	
 	public int getIndexID() {
 		return indexID;
 	}

@@ -136,7 +136,7 @@ public class LectureDao {
 	
 	public List<LectureInfo> selectSugangLectureInfoList(){
 		
-		String sql = " select li.indexId, li.department, li.subjectNumber, li.subjectName, li.classTime, li.LectureRoom, li.professor,"
+		String sql = " select li.indexId, li.department, li.subjectNumber, li.subjectName, li.classTime, li.LectureRoom, li.professor, td.dept_grade,"
 				+ " li.lecture_credit, li.subscription_limit "
 				+ " from turkey_lecture_info li, turkey_user_dept td, turkey_login_user lu "
 				+ " where li.indexid = td.dept_id and td.user_id = lu.user_id ";
@@ -163,7 +163,7 @@ public class LectureDao {
 				lectureInfo.setClassTime(rs.getString("classTime"));
 				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				lectureInfo.setProfessor(rs.getString("professor"));
-
+				lectureInfo.setGrade(rs.getString("dept_grade"));
 				lectureInfo.setLectureCredit(rs.getInt("lecture_credit"));	
 				lectureInfo.setSubscriptioLimit(rs.getInt("subscription_limit"));
 				
@@ -327,9 +327,9 @@ public class LectureDao {
 	
 	public List<StudentInfo> showStudent(int indexId){
 		List<StudentInfo> list = new ArrayList<StudentInfo>();
-		String sql = "select u.sd_name, u.sd_email, u.sd_pn "
+		String sql = "select u.sd_name, u.sd_id, u.sd_email, u.sd_pn, t.dept_grade "
 				+ "from turkey_user_dept t, turkey_user u "
-				+ "where t.user_id = u.sd_id and dept_id = ?";
+				+ "where t.user_id = u.sd_id and t.dept_id = ?";
 		StudentInfo studentInfo = null;
 		try{
 			connect();
@@ -343,7 +343,9 @@ public class LectureDao {
 				studentInfo.setName(rs.getString("SD_NAME"));
 				studentInfo.setEmail(rs.getString("SD_EMAIL"));
 				studentInfo.setPn(rs.getString("SD_PN"));
-				list.add(studentInfo);//list�� �ش� �ν��Ͻ��� ��´�.
+				studentInfo.setId(rs.getString("SD_ID"));
+				studentInfo.setGrade(rs.getString("DEPT_GRADE"));
+				list.add(studentInfo);
 //				System.out.println(rs.getString("SD_EMAIL"));
 //				System.out.println(rs.getString("SD_PN"));
 			}
