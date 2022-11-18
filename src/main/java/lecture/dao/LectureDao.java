@@ -80,7 +80,7 @@ public class LectureDao {
 			
 			
 			int result = psmt.executeUpdate();
-			System.out.println(result);
+//			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -295,7 +295,7 @@ public class LectureDao {
 				lectureInfo.setClassTime(rs.getString("classTime"));
 				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				lectureInfo.setProfessor(rs.getString("professor"));
-				System.out.println(rs.getString("professor"));
+//				System.out.println(rs.getString("professor"));
 				lectureInfoList.add(lectureInfo);
 			}
 			
@@ -318,33 +318,108 @@ public class LectureDao {
 		StudentInfo studentInfo = null;
 		try{
 			connect();
-			System.out.println(indexId);
+//			System.out.println(indexId);
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, indexId);
 			rs = psmt.executeQuery();
-			System.out.println(rs);
+//			System.out.println(rs);
 			while(rs.next()) {
 				studentInfo = new StudentInfo();
 				studentInfo.setName(rs.getString("SD_NAME"));
 				studentInfo.setEmail(rs.getString("SD_EMAIL"));
 				studentInfo.setPn(rs.getString("SD_PN"));
 				list.add(studentInfo);//list�� �ش� �ν��Ͻ��� ��´�.
-				System.out.println(rs.getString("SD_EMAIL"));
-				System.out.println(rs.getString("SD_PN"));
+//				System.out.println(rs.getString("SD_EMAIL"));
+//				System.out.println(rs.getString("SD_PN"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			disConnect();
 		}
-		System.out.println("---");
-		System.out.println(list);
-		System.out.println(list.get(0).getEmail());
-		System.out.println(list.get(1).getEmail());
+//		System.out.println("---");
+//		System.out.println(list);
+
 		return list;
 	}
 	
+	public List<LectureInfo> createLecture(){
+		String sql = "SELECT * FROM create_lecture";
+		List<LectureInfo> createLectureList = null;
+		try{
+			
+			connect();
+			psmt = conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			
+			
+			createLectureList = new ArrayList<LectureInfo>();
+			while(rs.next()) {
+				LectureInfo createLectureInfo = new LectureInfo();
+				createLectureInfo.setDepartment(rs.getString("department"));
+				createLectureInfo.setSubjectName(rs.getString("subjectName"));
+				createLectureInfo.setSubjectNumber(rs.getString("subjectnumber"));
+				createLectureInfo.setClassTime(rs.getString("classTime"));
+				createLectureInfo.setLectureRoom(rs.getString("lectureRoom"));
+				createLectureInfo.setProfessor(rs.getString("professor"));
+				createLectureInfo.setIndexId(rs.getInt("lectureno"));
+//				System.out.println(rs.getString("professor"));
+				createLectureList.add(createLectureInfo);
+			}
+			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
+		return createLectureList;
+	}
 	
+	public int deleteTempLecture(int lectureno) {
+		int result = 0;
+
+		String SQL = "DELETE FROM create_lecture "
+				+ "WHERE lectureno = ?";
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(SQL);
+			psmt.setInt(1, lectureno);	
+			
+			return psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+
+		return result;
+	}
 	
-	
+	public void insertLectureInfoAdmin(String department, String subjectNumber, String sujectName, String classTime, String lectureRoom, String professor) {
+		String sql = "INSERT INTO lecture_info "
+				+ "VALUES((select max(indexid)+1 from lecture_info), ?, ?, ?, ?, ?, ?)";
+		try {
+			connect();
+			
+			psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, department);
+			psmt.setString(2, subjectNumber);
+			psmt.setString(3, sujectName);
+			psmt.setString(4, classTime);
+			psmt.setString(5, lectureRoom);
+			psmt.setString(6, professor);
+			
+			int result = psmt.executeUpdate();
+//			System.out.println(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
 }

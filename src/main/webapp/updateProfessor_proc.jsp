@@ -15,7 +15,7 @@
 		String professor = request.getParameter("updatelecture1");
 		int index = Integer.parseInt(request.getParameter("index_2"));
 		UpdateLecture up = new UpdateLecture();
-		up.updateProfessor(professor, index+1);
+		up.updateProfessor(professor, index);
 	%>
 	
 			<script>

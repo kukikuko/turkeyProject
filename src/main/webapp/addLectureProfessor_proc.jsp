@@ -13,35 +13,32 @@
 </head>
 <body>
 <%
+		
 		Userdao Ud = new Userdao();
-		String name = null;
-		String email = null;
-		String pn = null;
 
-		if(request.getParameter("updateName").equals("")) {
-			name = Ud.selectStudent().getUserName();
-		} else {
-			name = request.getParameter("updateName");
-		}
+			
+			String subjectName = request.getParameter("insertSubject");
 		
-		if(request.getParameter("updateEmail").equals("")){
-			email = Ud.selectStudent().getUserEmail(); 
-		} else {
-			email = request.getParameter("updateEmail");
-		}
+			String classTimeDay = request.getParameter("day");
+			String classTimeStarthour = request.getParameter("starthour");
+			String classTimeStartminute= request.getParameter("startminute");
+			String classTimeFinishthour = request.getParameter("finishhour");
+			String classTimeFinishtminute= request.getParameter("finishminute");
 		
-		if(request.getParameter("updatePn").equals("")){
-			pn = Ud.selectStudent().getUserPhoneNumber();
-		} else {
-			pn = request.getParameter("updatePn");	
-		}		
-		
-		Ud.updateStudent(name, email, pn);
+			String subjectNumber = request.getParameter("insertNumber");
+			String lectureRoom = request.getParameter("insertRoom");	
+			
+			out.println(subjectNumber);
+	
+			String classTime = classTimeDay + " " + classTimeStarthour + ":" + classTimeStartminute +
+				"~" + classTimeFinishthour + ":" + classTimeFinishtminute;
+			
+		Ud.insertCreateLecture(subjectName, classTime, lectureRoom, subjectNumber);
 	%>
 	
 			<script>
-					alert('수정되었습니다.')
-					location.href = "index.jsp";
+					alert('개설되었습니다.')
+					location.href = "profDetail.jsp";
 			</script>
 		
 </body>

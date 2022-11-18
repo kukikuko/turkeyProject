@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import lecture.dto.LectureInfo;
+import lecture.dto.ProfessorInfo;
 
 public class Userdao {
 
@@ -99,6 +100,31 @@ public class Userdao {
 	
 	public int profLogin(String userID, String userPassword) {
 		String SQL = "SELECT pf_no FROM TEST_PROF WHERE pf_no =?";
+		try {
+			connect();
+
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, userID);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				System.out.println(rs.getString(1));
+				if (rs.getString(1).equals(userPassword)) {
+					return 1; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
+				} else
+					return 0; // 占쏙옙橘占싫� 占쏙옙占쏙옙치
+			}
+			return -1; // 占쏙옙占싱듸옙 占쏙옙占쏙옙
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return -2; // 占쏙옙占쏙옙占싶븝옙占싱쏙옙 占쏙옙占쏙옙
+	}
+	
+	public int adminLogin(String userID, String userPassword) {
+		String SQL = "SELECT admin_pw FROM admin WHERE admin_id = ?";
 		try {
 			connect();
 
@@ -267,6 +293,59 @@ public class Userdao {
 
 		return user;
 	}
+	
+	public int selectLoginProf(){
+		String sql = "select * from login_prof";
+		
+		int pfNo = 0;
+		try{
+			connect();
+			psmt = conn.prepareStatement(sql);
+	
+			rs = psmt.executeQuery();
+		
+			if(rs.next()) {
 
+				pfNo = rs.getInt("PF_ID");
+			}
+			
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		
 
+		return pfNo;
+	}
+
+	public void insertCreateLecture(String subjectName, String classTime, String lectureRoom, String subjectNumber) {
+		
+		String SQL = "INSERT INTO create_lecture "
+				+ "VALUES(?, "
+				+ " ?, "
+				+ " ?, "
+				+ "(select t.pf_dept from test_prof t where t.pf_no = (select * from login_prof)), "
+				+ "(select t.pf_name from test_prof t where t.pf_no = (select * from login_prof)), "
+				+ " (SELECT nvl(max(lectureno)+1, 1) FROM create_lecture), "
+				+ "?)";
+		try {
+			connect();
+			psmt = conn.prepareStatement(SQL);
+			psmt.setString(1, subjectName);
+			psmt.setString(2, classTime);
+			psmt.setString(3, lectureRoom);
+			psmt.setString(4, subjectNumber);
+			
+			psmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+	}
+	
+	
+	
 }

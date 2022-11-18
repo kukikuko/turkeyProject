@@ -28,8 +28,11 @@
 		} else if(type.equals("교수")) {
 			result = personDao.profLogin(id, pw);			
 			loginResult = 2;
+		} else if(type.equals("관리자")) {
+			result = personDao.adminLogin(id, pw);			
+			loginResult = 3;
 		}
-		
+		out.println(loginResult);
 		if(result > 0) {
 			if(loginResult == 1) {
 				personDao.deleteloginDb();
@@ -45,7 +48,16 @@
 				<%
 					personDao.deleteProf();
 					personDao.insertProf(id);
-		} else if(result == 0) {
+					
+			} else if(loginResult == 3){ 
+				%>
+					<script>alert('관리자 로그인 성공')</script>
+					<script>location.href = 'addLectureAdmin.jsp?<%=id%>';</script>
+				<%
+// 					personDao.deleteProf();
+// 					personDao.insertProf(id);
+		
+			}} else if(result == 0) {
 	%>
 		<script>alert('로그인 실패1')</script>
 		<script>location.href = "main.jsp"</script>
@@ -58,8 +70,11 @@
 		} else {
 	%>	
 		<script>alert('로그인 실패3')</script>
+		<script>location.href = "main.jsp"</script>
 	<%
-	}}; 
+		}; 
+		
+		
 	%>	
 </body>
 </html>
