@@ -4,7 +4,7 @@ public class createTable {
 
 /*
 
- create table turkey_create_lecture
+create table turkey_create_lecture
 (
 subjectname varchar2(128),
 classtime varchar2(128),
@@ -12,7 +12,8 @@ lectureroom varchar2(128),
 department varchar2(128),
 professor varchar2(128),
 lectureNo number primary key,
-subjectnumber VARCHAR2(128)
+subjectnumber VARCHAR2(128),
+credit number
 );
 
 create table turkey_lecture_info

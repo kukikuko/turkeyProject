@@ -342,7 +342,7 @@ public class Userdao {
 		return pfNo;
 	}
 
-	public void insertCreateLecture(String subjectName, String classTime, String lectureRoom, String subjectNumber) {
+	public void insertCreateLecture(String subjectName, String classTime, String lectureRoom, String subjectNumber, int credit) {
 		
 		String SQL = "INSERT INTO turkey_create_lecture "
 				+ "VALUES(?, "
@@ -351,7 +351,7 @@ public class Userdao {
 				+ "(select t.pf_dept from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
 				+ "(select t.pf_name from turkey_prof t where t.pf_no = (select * from turkey_login_prof)), "
 				+ " (SELECT nvl(max(lectureno)+1, 1) FROM turkey_create_lecture), "
-				+ "?)";
+				+ "?, ?)";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
@@ -359,6 +359,7 @@ public class Userdao {
 			psmt.setString(2, classTime);
 			psmt.setString(3, lectureRoom);
 			psmt.setString(4, subjectNumber);
+			psmt.setInt(5, credit);
 			
 			psmt.executeUpdate();
 		} catch (Exception e) {

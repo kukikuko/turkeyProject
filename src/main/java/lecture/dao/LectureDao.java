@@ -67,7 +67,7 @@ public class LectureDao {
 				+ " ?, ?, ?,"
 				+ " (SELECT trim(NVL((SUBSTR( ? ,0, INSTR(?,'[')-1)),'정보없음')) FROM dual), "
 				+ " (SELECT NVL(SUBSTR(?, INSTR(?,'[')+1, INSTR(?,']')-INSTR(?,'[')-1),'강의실정보없음')  FROM dual), "
-				+ " ? , 3, ?, 0)";
+				+ " ? , ?, ?, 0)";
 		try {
 			connect();
 			int random=(int)(10+Math.random()*10);
@@ -81,8 +81,9 @@ public class LectureDao {
 			psmt.setString(7, info.lectureRoom);
 			psmt.setString(8, info.lectureRoom);
 			psmt.setString(9, info.lectureRoom);
-			psmt.setString(10, info.professor);
-			psmt.setInt(11, random);
+			psmt.setString(10, info.professor);			
+			psmt.setInt(11, info.lectureCredit);
+			psmt.setInt(12, random);
 			System.out.println(random);
 			int result = psmt.executeUpdate();
 //			System.out.println(result);
@@ -380,6 +381,7 @@ public class LectureDao {
 				createLectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				createLectureInfo.setProfessor(rs.getString("professor"));
 				createLectureInfo.setIndexId(rs.getInt("lectureno"));
+				createLectureInfo.setLectureCredit(rs.getInt("credit"));
 //				System.out.println(rs.getString("professor"));
 				createLectureList.add(createLectureInfo);
 			}
@@ -641,10 +643,10 @@ public class LectureDao {
 		return result;
 	}
 	
-	public void insertLectureInfoAdmin(String department, String subjectNumber, String sujectName, String classTime, String lectureRoom, String professor) {
+	public void insertLectureInfoAdmin(String department, String subjectNumber, String sujectName, String classTime, String lectureRoom, String professor, int credit) {
 
 		String sql = "INSERT INTO turkey_lecture_info "
-				+ "VALUES((select max(indexid)+1 from turkey_lecture_info), ?, ?, ?, ?, ?, ?, 3, ?, 0)";
+				+ "VALUES((select max(indexid)+1 from turkey_lecture_info), ?, ?, ?, ?, ?, ?, ?, ?, 0)";
 		try {
 			connect();
 			int random=(int)(10+Math.random()*10);
@@ -656,7 +658,8 @@ public class LectureDao {
 			psmt.setString(4, classTime);
 			psmt.setString(5, lectureRoom);
 			psmt.setString(6, professor);
-			psmt.setInt(7, random);
+			psmt.setInt(7, credit);
+			psmt.setInt(8, random);
 			int result = psmt.executeUpdate();
 //			System.out.println(result);
 		} catch (Exception e) {

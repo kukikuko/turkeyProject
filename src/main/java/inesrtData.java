@@ -68,6 +68,44 @@ public class inesrtData {
 			Lectureinfo.classTime = (String) obj.get("수업시간/강의실");
 			Lectureinfo.lectureRoom = (String) obj.get("수업시간/강의실");
 			Lectureinfo.professor = (String) obj.get("교수진");
+			
+			
+			String a = (String) obj.get("수업시간/강의실");
+			int m = 0;
+			int n = 0;
+			
+			
+			if (a.equals("") || a.indexOf("/") > 0 || a.indexOf(",") > 0) {
+				m = 300;
+			} else {
+				
+				int b = Integer.parseInt( a.substring(a.indexOf(" ")+1, a.indexOf(":")));
+				int c = Integer.parseInt( a.substring(a.indexOf(":")+1, a.indexOf("~")));
+				int d = Integer.parseInt( a.substring(a.indexOf("~")+1, a.lastIndexOf(":")));
+				int e;
+				
+				if (a.indexOf("[") < 0) {
+					e = Integer.parseInt( a.substring(a.lastIndexOf(":") + 1));
+				} else {
+					e = Integer.parseInt( a.substring(a.lastIndexOf(":")+1,a.indexOf("[")-1));
+				}
+				
+				int x = b*100 + c;
+				int y = d * 100 + e;
+				
+				m = y -x;
+				
+			}
+			
+			if(m <200) {
+				n = 1;
+			} else if(m < 300) {
+				n = 2;
+			} else {
+				n = 3;
+			}
+			
+			Lectureinfo.lectureCredit = n;
 
 			lectureDao.insertLectureInfo(Lectureinfo);
 		}

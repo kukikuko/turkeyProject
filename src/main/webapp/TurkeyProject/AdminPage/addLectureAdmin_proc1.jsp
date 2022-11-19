@@ -28,10 +28,11 @@
 	String lectureRoom = createLectureList.get(lectureno).lectureRoom;
 	String professor = createLectureList.get(lectureno).professor;
 	String subjectNumber = createLectureList.get(lectureno).subjectNumber;
+	int credit = createLectureList.get(lectureno).lectureCredit;
 	
 	out.println(subjectNumber + " " + indexId + " " + lectureno);
 	
-	ld.insertLectureInfoAdmin(department, subjectNumber, subjectName, classTime, lectureRoom, professor);
+	ld.insertLectureInfoAdmin(department, subjectNumber, subjectName, classTime, lectureRoom, professor, credit);
 
 %>
 <script>

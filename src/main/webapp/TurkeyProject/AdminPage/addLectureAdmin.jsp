@@ -27,6 +27,7 @@
 				<th scope="col">수업시간</th>
 				<th scope="col">강의실</th>
 				<th scope="col">교수진</th>
+				<th scope="col">학점</th>
 				<th scope="col">삭제</th>
 				<th scope="col">승인</th>
 			</tr>
@@ -46,6 +47,7 @@
 				<td><%=createLectureList.get(i).getClassTime()%></td> 
 				<td><%=createLectureList.get(i).getLectureRoom()%></td> 
 				<td><%=createLectureList.get(i).getProfessor()%></td> 
+				<td><%=createLectureList.get(i).getLectureCredit()%></td> 
 				
 				<td><form name = "Admin<%=i%>" method="post" 
 				action="./addLectureAdmin_proc.jsp?value=<%=createLectureList.get(i).getIndexId()%>">

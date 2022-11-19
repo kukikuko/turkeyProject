@@ -28,12 +28,28 @@
 			String subjectNumber = request.getParameter("insertNumber");
 			String lectureRoom = request.getParameter("insertRoom");	
 			
-			out.println(subjectNumber);
-	
+			int CTSH = Integer.parseInt(classTimeStarthour);
+			int CTSM = Integer.parseInt(classTimeStartminute);
+			int CTFH = Integer.parseInt(classTimeFinishthour);
+			int CTFM = Integer.parseInt(classTimeFinishtminute);
+			
+			int time = CTFH * 100 + CTFM - CTSH * 100 - CTSM;
+			int credit = 0;
+			
+			if(time < 200) {
+				credit = 1;
+			} else if(time < 300) {
+				credit = 2;
+			} else {
+				credit = 3;
+			}
+			
+			out.println(credit);
+			
 			String classTime = classTimeDay + " " + classTimeStarthour + ":" + classTimeStartminute +
 				"~" + classTimeFinishthour + ":" + classTimeFinishtminute;
 			
-		Ud.insertCreateLecture(subjectName, classTime, lectureRoom, subjectNumber);
+		Ud.insertCreateLecture(subjectName, classTime, lectureRoom, subjectNumber, credit);
 	%>
 	
 			<script>
