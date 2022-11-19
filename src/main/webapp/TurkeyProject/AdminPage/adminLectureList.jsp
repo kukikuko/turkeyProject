@@ -26,11 +26,23 @@
 	StudentInfo si = new StudentInfo();
 %>
 
-<%@ include file="adminNavbar.jsp"%>
-
-	<div class="container">
-		<div class="row">
-			<form method="post" name="search" action="searchbbs.jsp">
+<nav class="navbar navbar-expand-lg bg-light">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+			data-bs-target="#navbarNavAltMarkup"
+			aria-controls="navbarNavAltMarkup" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<div class="navbar-nav">
+				<a class="nav-link" href="addLectureAdmin.jsp">강의 승인</a>
+			</div>
+			<div class="navbar-nav">
+				<a class="nav-link" href="adminLectureList.jsp">강의 수정</a>
+			</div>
+			<!-- 검색기능 보이는곳 -->
+		<div class="navbar-nav" >
+			<form method="post" name="search" action="adminSearch.jsp">
 				<table class="pull-right">
 					<tr>
 						<td><select class="form-control" name="searchField">
@@ -46,10 +58,8 @@
 				</table>
 			</form>
 		</div>
-	</div>
-
-
-
+		</div>
+	</nav>
 
 
 

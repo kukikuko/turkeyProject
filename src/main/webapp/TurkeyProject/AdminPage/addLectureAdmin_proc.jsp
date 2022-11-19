@@ -10,7 +10,6 @@
 <meta charset="UTF-8">
 </head>
 <body>
-<%@ include file="adminNavbar.jsp"%>
 <%
 	LectureDao ld = new LectureDao();
 	

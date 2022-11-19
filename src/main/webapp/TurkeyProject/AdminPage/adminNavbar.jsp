@@ -19,8 +19,6 @@
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
-		<a class="navbar-brand" href="adminHome.jsp">인덱스홈</a>
-
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<div class="navbar-nav">
 				<a class="nav-link" href="addLectureAdmin.jsp">강의 승인</a>

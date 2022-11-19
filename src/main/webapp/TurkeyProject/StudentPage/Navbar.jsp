@@ -26,6 +26,9 @@
 			<div class="navbar-nav">
 				<a class="nav-link" href="sugangIndex.jsp">수강신청목록</a>
 			</div>
+			<div class="navbar-nav">
+				<a class="nav-link" href="gradeCheck.jsp">성적확인</a>
+			</div>
 			<!-- 검색기능 보이는곳 -->
 		<div class="navbar-nav" >
 			<form method="post" name="search" action="searchbbs.jsp">
