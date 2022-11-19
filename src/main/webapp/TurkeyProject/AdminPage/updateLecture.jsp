@@ -122,15 +122,23 @@
 		document.getElementById('deleteButton').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.deleteButton1
-			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
-				confirm('강의를 삭제하시겠습니까?')
+			var del = confirm("정말 삭제 하시겠습니까?");
 			
-				form.updatelecture2.focus();
+			if(del == true){
+				if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
+					alert('삭제 되었습니다.')
 				
-			
-					form.action = "deleteLecture_proc.jsp";
-					form.submit();
+					form.updatelecture2.focus();
+					
+				
+						form.action = "deleteLecture_proc.jsp";
+						form.submit();
+				}	
 			}
+			else{
+				alert("취소 되었습니다.");
+			}
+			
 			});
 		
 </script>
