@@ -15,20 +15,9 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
+<%@ include file="Navbar.jsp"%>
 	<h2>강의정보 업데이트</h2>
 
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="home.jsp">인덱스홈1</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-	</nav>
 
 
 	<%
@@ -135,15 +124,23 @@
 		document.getElementById('deleteButton').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.deleteButton1
-			if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
-				confirm('강의를 삭제하시겠습니까?')
+			var del = confirm("정말 삭제 하시겠습니까?");
 			
-				form.updatelecture2.focus();
+			if(del == true){
+				if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
+					alert('삭제 되었습니다.')
 				
-			
-					form.action = "deleteLecture_proc.jsp";
-					form.submit();
+					form.updatelecture2.focus();
+					
+				
+						form.action = "deleteLecture_proc.jsp";
+						form.submit();
+				}	
 			}
+			else{
+				alert("취소 되었습니다.");
+			}
+			
 			});
 		
 </script>
