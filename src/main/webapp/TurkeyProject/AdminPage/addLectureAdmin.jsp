@@ -8,10 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
-	<h2>여기는 관리자 페이지입니다.</h2>
+<%@ include file="adminNavbar.jsp"%>
 
 
 	<%

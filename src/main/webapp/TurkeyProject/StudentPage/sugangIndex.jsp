@@ -62,7 +62,7 @@ List<LectureInfo> lectureInfoList = lectureDao.selectSugangLectureInfoList();
     		<tr>
     	    	<td><%=info.getDepartment()%></td>
     	    	<td><%=info.getSubjectNumber()%></td>
-    	    	<td><button onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()%>'"><%=info.getSubjectName()%></button></td>
+    	    	<td><%=info.getSubjectName()%></td>
     	    	<td><%=info.getClassTime()%></td>
     	    	<td><%=info.getLectureRoom()%></td>
     	    	<td><%=info.getProfessor()%></td>

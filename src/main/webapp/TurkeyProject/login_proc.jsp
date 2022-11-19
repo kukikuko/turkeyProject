@@ -39,12 +39,12 @@
 				personDao.loginDb(id);
 				%>
 					<script>alert('학생 로그인 성공')</script>
-					<script>location.href = 'index.jsp?<%=id%>';</script>
+					<script>location.href = 'StudentPage/index.jsp?<%=id%>';</script>
 				<%		
 			} else if(loginResult == 2){ 
 				%>
 					<script>alert('교수 로그인 성공')</script>
-					<script>location.href = 'profDetail.jsp?<%=id%>';</script>
+					<script>location.href = 'ProfessorPage/profDetail.jsp?<%=id%>';</script>
 				<%
 					personDao.deleteProf();
 					personDao.insertProf(id);
@@ -52,7 +52,7 @@
 			} else if(loginResult == 3){ 
 				%>
 					<script>alert('관리자 로그인 성공')</script>
-					<script>location.href = 'addLectureAdmin.jsp?<%=id%>';</script>
+					<script>location.href = 'AdminPage/adminHome.jsp?<%=id%>';</script>
 				<%
 // 					personDao.deleteProf();
 // 					personDao.insertProf(id);

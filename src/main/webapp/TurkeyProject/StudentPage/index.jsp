@@ -116,9 +116,6 @@
     	    	<td><%=info.getSubscriptioLimit() - info.getCurrentStudent()%></td>
     	    	<td><%=info.getSubscriptioLimit()%></td>
     	    	<td><button type="button" class="btn btn-primary" onclick="location.href='lectureDeatail.jsp?indexId=<%=info.getIndexId()%>'">수강신청</button><td>
-				<td><button type="button" class="btn btn-primary"
-						onclick="location.href='updateLecture.jsp?indexId=<%=info.getIndexId()%>'">수정하기</button>
-				<td>
     	    </tr>
     <%    			
     		}

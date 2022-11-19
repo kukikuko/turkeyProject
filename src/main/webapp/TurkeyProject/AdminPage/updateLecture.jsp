@@ -15,21 +15,8 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
+<%@ include file="adminNavbar.jsp"%>
 	<h2>강의정보 업데이트</h2>
-
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="home.jsp">인덱스홈1</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-				aria-controls="navbarNavAltMarkup" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</div>
-	</nav>
-
 
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));

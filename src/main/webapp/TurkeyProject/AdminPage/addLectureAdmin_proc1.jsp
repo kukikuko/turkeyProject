@@ -8,10 +8,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 </head>
 <body>
-
+<%@ include file="adminNavbar.jsp"%>
 <%
 	LectureDao ld = new LectureDao();
 	List<LectureInfo> createLectureList = ld.createLecture();

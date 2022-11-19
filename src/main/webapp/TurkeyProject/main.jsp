@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="dao.Userdao"%>
 <%request.setCharacterEncoding("UTF-8");%>
-<link href="MainCss.css" rel="stylesheet" type="text/css">
+<link href="CSS/MainCss.css" rel="stylesheet" type="text/css">
 <!DOCTYPE html>
 <html>
 <head>
