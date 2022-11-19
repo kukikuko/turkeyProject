@@ -258,7 +258,11 @@ public class LectureDao {
 	      String sql ="select * from turkey_lecture_info WHERE "+searchField.trim();
 	      try {
 	            if(searchText != null && !searchText.equals("") ){
-	            	sql +=" LIKE '%"+searchText.trim()+"%'";
+	            	if(searchField.equals("lecture_credit")) {
+	            		sql += " = " + searchText.trim();
+	            	} else {
+	            		sql +=" LIKE '%"+searchText.trim()+"%'";
+	            	}
 	            }
 	            connect();
 	            psmt=conn.prepareStatement(sql);
