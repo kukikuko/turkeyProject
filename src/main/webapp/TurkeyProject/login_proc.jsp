@@ -53,14 +53,9 @@
 	<script>alert('관리자 로그인 성공')</script>
 	<script>location.href = 'AdminPage/adminHome.jsp?<%=id%>';</script>
 	<%
-			}} else if(result == 0) {
+			}} else if(result == 0 || result == -1) {
 	%>
-	<script>alert('비밀번호를 확인 해주세요.')</script>
-	<script>location.href = "main.jsp"</script>
-	<%		
-		} else if(result == -1) {
-	%>
-	<script>alert('아이디 또는 로그인 타입을 확인 해주세요.')</script>
+	<script>alert('아이디 또는 비밀번호를 확인 해주세요.')</script>
 	<script>location.href = "main.jsp"</script>
 	<%	
 		} else {
