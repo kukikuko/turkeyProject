@@ -31,6 +31,7 @@
 	%>
 	<h3><%=lectureInfoList.get(0).getProfessor()%></h3>
 	<h5>교수님의 강의</h5>
+	<button onclick="location.href='logoutProf_proc.jsp?'">로그아웃</button>
 	<div style = "text-align : right">
 	<button onclick = "location.href ='addLectureProfessor.jsp?profno=<%=profno%>'">강의 개설</button>
 	</div>

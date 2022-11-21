@@ -26,6 +26,7 @@
 			<div class="navbar-nav">
 				<a class="nav-link" href="adminLectureList.jsp">강의 수정</a>
 			</div>
+			<button onclick="location.href='../main.jsp?'">로그아웃</button>
 		</div>
 	</nav>
 

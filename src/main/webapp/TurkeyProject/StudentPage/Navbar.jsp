@@ -50,6 +50,7 @@
 		</div>
 		<!--개인정보 수정 -->
 		<button onclick="location.href='updateStudent.jsp?sd_id'">개인정보 수정</button>
+		<button onclick="location.href='logoutStudent_proc.jsp?'">로그아웃</button>
 		</div>
 	</nav>
 
