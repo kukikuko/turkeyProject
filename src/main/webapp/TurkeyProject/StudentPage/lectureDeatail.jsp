@@ -16,13 +16,14 @@
 <body>
 <%@ include file="Navbar.jsp"%>
 
-
+<!-- 디테일 페이지는 받아온 indexid를 파라미터로 SELECT 쿼리를 진행. -->
+<!-- 해당 인덱스의 강의만 보여줍니다. -->
+<!-- 디테일 페이지에서 수강신청 버튼을 클릭시 index를 가지고 addDept_proc.jsp로 이동 합니다. -->
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
 		LectureDao lectureDao = new LectureDao();
 		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 	%>
-
 
 	<table class="table">
 		<thead>
@@ -40,7 +41,6 @@
 		</thead>
 		<tbody>
 
-
 			<tr>
 				<td><%=lectureInfo.getDepartment()%></td>
 				<td><%=lectureInfo.getSubjectNumber()%></td>
@@ -51,6 +51,9 @@
 				<td><%=lectureInfo.getLectureCredit()%></td>
 				<td><%=lectureInfo.getSubscriptioLimit() - lectureInfo.getCurrentStudent()%></td>
 				<td><%=lectureInfo.getSubscriptioLimit()%></td>
+<!-- 디테일 페이지는 받아온 indexid를 파라미터로 SELECT 쿼리를 진행. -->
+<!-- 해당 인덱스의 강의만 보여줍니다. -->
+<!-- 디테일 페이지에서 수강신청 버튼을 클릭시 index를 가지고 addDept_proc.jsp로 이동 합니다. -->
 				<td>
 					<form name="deptForm" action="addDept_proc.jsp" method="post">
 						<button type="submit" class="btn btn-primary">수강신청</button>
@@ -58,14 +61,8 @@
 					</form>
 				<td>
 			</tr>
-
-
 		</tbody>
 	</table>
-
-
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

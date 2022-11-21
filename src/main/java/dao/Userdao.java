@@ -48,7 +48,12 @@ public class Userdao {
 			e.printStackTrace();
 		}
 	}
-
+	
+//	SQL쿼리문을 작성하는데. user 정보는 신청가능 전체 학점정보로 사용할
+//	sd_credit라는 정보가 있어서 SQL Developer와 컬럼 갯수를 맞추기 위해
+//	쿼리문에는 5개의 정보가 user 파라미터로 받아오고
+//	1개의 약속한 정보가 INSERT INTO 됍니다.
+//	모든 학생은 18학점으로 신청가능한 학점을 약속합니다.
 	public int join(User user) {
 
 		int result = 0;

@@ -15,25 +15,26 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>교수 홈 화면</title>
 </head>
 <body>
-
+<!-- profDetail.jsp페이지로 넘어오면 교수이름과 교수가 개설한 강의목록이 화면이 보이고. -->
+<!-- 개설한 과목명을 클릭하면 indexid를 가지고 showStudent.jsp로 이동합니다. -->
 
 	<%
 	LectureDao lectureDao = new LectureDao();
 	List<LectureInfo> lectureInfoList = lectureDao.professorInfo();
 	
-	
 	Userdao ud = new Userdao();
 	int profno = ud.selectLoginProf();		
-	
 	%>
 	<h3><%=lectureInfoList.get(0).getProfessor()%></h3>
 	<h5>교수님의 강의</h5>
 	<button onclick="location.href='logoutProf_proc.jsp?'">로그아웃</button>
 	<div style = "text-align : right">
-	<button onclick = "location.href ='addLectureProfessor.jsp?profno=<%=profno%>'">강의 개설</button>
+<!-- 교수 로그인 후 profDetail에서 강의신청 버튼을 누르면 교수가 원하는 강의를 -->
+<!-- 개설신청 할 수 있습니다. 개설신청 버튼을 누르면 addLectureProfessor.jsp로 이동합니다. -->
+	<button onclick = "location.href ='addLectureProfessor.jsp?profno=<%=profno%>'">강의 신청</button>
 	</div>
 	<table class="table">
 		<thead>
@@ -50,7 +51,6 @@
 		<%
 		for (LectureInfo l : lectureInfoList) {
 		%>
-
 
 		<tbody>
 			<tr>
@@ -70,14 +70,6 @@
 		}
 		%>
 	</table>
-
-
-
-
-
-
-
-
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

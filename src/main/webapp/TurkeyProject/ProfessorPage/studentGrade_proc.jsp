@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>로그인 하는 곳</title>
+<title>학점부여</title>
 
 <%
 	int size = Integer.parseInt(request.getParameter("size"));
@@ -21,16 +21,11 @@
 		String index = request.getParameter("index");
 		
 		ud.updateStudentGrade(grade, id, index);
-		
-		
 	}
-	
-	
 %>
-	
-			<script>
-					alert('수정되었습니다.')
-					location.href = "profDetail.jsp";
-			</script>
+		<script>
+				alert('수정되었습니다.')
+				location.href = "profDetail.jsp";
+		</script>
 </body>
 </html>

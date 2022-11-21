@@ -9,10 +9,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>학생 정보수정 처리</title>
 </head>
 <body>
-<%
+<!-- upupdateStudent.jsp에서 가져온 파라미터를 받아서 UserDao에 메소드로 전달. -->
+<!-- update 쿼리문을 파라미터와 조합해주고. -->
+<!-- 수정되었습니다. 알림이뜨고 index.jsp로 이동합니다. -->
+	<%
 		Userdao Ud = new Userdao();
 		String name = null;
 		String email = null;
@@ -39,10 +42,10 @@
 		Ud.updateStudent(name, email, pn);
 	%>
 	
-			<script>
-					alert('수정되었습니다.')
-					location.href = "index.jsp";
-			</script>
+		<script>
+				alert('수정되었습니다.')
+				location.href = "index.jsp";
+		</script>
 		
 </body>
 </html>

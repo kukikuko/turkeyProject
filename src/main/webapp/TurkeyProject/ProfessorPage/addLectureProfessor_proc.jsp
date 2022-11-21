@@ -9,13 +9,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>강의신청proc</title>
 </head>
 <body>
-<%
-		
+	<%
 		Userdao Ud = new Userdao();
-
 			
 			String subjectName = request.getParameter("insertSubject");
 		
@@ -44,17 +42,15 @@
 				credit = 3;
 			}
 			
-			
 			String classTime = classTimeDay + " " + classTimeStarthour + ":" + classTimeStartminute +
 				"~" + classTimeFinishthour + ":" + classTimeFinishtminute;
 			
 		Ud.insertCreateLecture(subjectName, classTime, lectureRoom, subjectNumber, credit);
 	%>
 	
-			<script>
-					alert('개설되었습니다.')
-					location.href = "profDetail.jsp";
-			</script>
-		
+		<script>
+				alert('개설되었습니다.')
+				location.href = "profDetail.jsp";
+		</script>
 </body>
 </html>

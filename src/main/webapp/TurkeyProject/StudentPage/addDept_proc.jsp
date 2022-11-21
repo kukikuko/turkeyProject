@@ -18,6 +18,11 @@
 <title>수강신청 유효성검사</title>
 </head>
 <body>
+	<!-- 수강신청에는 몇가지 유효성검사를 걸어두었습니다. -->
+	<!-- 1. 같은 과목명으로 수강신청할 수 없습니다. (같은 과목명만 수강해서 졸업?? X) -->
+	<!-- 2. 정원을 초과하면 수강신청 할 수 없습니다. -->
+	<!-- 3. 각 학생은 18학점을 초과해서 수강신청 할 수 없습니다. -->
+	<!-- 4. 요일과 시간을 겹쳐서 수강신청 할 수 없습니다. (같은시간 두공간에 존재X) -->
 	<%
 		Userdao personDao = new Userdao();
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -44,7 +49,7 @@
 		}
 		if(sn==true) {
 	%>
-			<script>
+	<script>
 				alert('같은 강의는 신청 할 수 없습니다.')
 				location.href = "index.jsp"
 			</script>
@@ -52,15 +57,14 @@
 			}
 		if(subNum.getCurrentStudent() == subNum.getSubscriptioLimit()) {
 	%>
-			<script>
+	<script>
 				alert('정원이 초과되었습니다')
 				location.href = "index.jsp"
 			</script>
 	<%	
 		}
-		
-		
-		
+
+	
 		boolean pl = false;
 		int temp1 = 0;
 		int temp2 = 18;
@@ -74,7 +78,7 @@
 		}
 		if(pl==true){
 	%>
-		<script>
+	<script>
 			alert('신청가능 학점을 초과했습니다.')
 			location.href = "index.jsp"
 		</script>
@@ -144,13 +148,13 @@
 		if(result > 0) {
 		
 	%>
-			<script>alert('추가 성공')</script>
+	<script>alert('추가 성공')</script>
 	<%		
 			lectureDao.PlusCurrentStudent(id);
 			} 
 		}  else {
 	%>
-			<script>alert('시간이 중복된 강의는 신청 할 수 없습니다.')</script>
+	<script>alert('시간이 중복된 강의는 신청 할 수 없습니다.')</script>
 	<%	} %>
 	<script>location.href = "index.jsp"</script>
 </body>

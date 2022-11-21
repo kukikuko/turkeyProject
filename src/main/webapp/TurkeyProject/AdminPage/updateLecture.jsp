@@ -16,19 +16,19 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<!-- 화면은 강의정보를 보여주고, 과목명을 변경할 수 있고, 교수이름을 변경할 수 있고 -->
+	<!-- 강의정보를 삭제할 수 있습니다. -->
 	<%@ include file="adminNavbar.jsp"%>
 	<h2>강의정보 업데이트</h2>
 
 	<%
-		int id = Integer.parseInt(request.getParameter("indexId"));
-		LectureDao lectureDao = new LectureDao();
-		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
-		Lecture lecture = new Lecture();
-		
-		
-		List<Prof> proflist = lectureDao.selectProf(lectureInfo.getDepartment());
-	%>
+	int id = Integer.parseInt(request.getParameter("indexId"));
+	LectureDao lectureDao = new LectureDao();
+	LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
+	Lecture lecture = new Lecture();
 
+	List<Prof> proflist = lectureDao.selectProf(lectureInfo.getDepartment());
+	%>
 
 	<table class="table">
 		<thead>
@@ -45,7 +45,6 @@
 
 		<tbody>
 			<form name="deleteButton1">
-
 				<tr>
 					<td><%=lectureInfo.getDepartment()%></td>
 					<td><%=lectureInfo.getSubjectNumber()%></td>
@@ -57,46 +56,43 @@
 							value="<%=lectureInfo.getIndexId()%>">삭제하기</button> <input
 						type="hidden" name="index_3" value="<%=lectureInfo.getIndexId()%>"
 						required></td>
-
 				</tr>
 			</form>
 		</tbody>
-
-
-
 	</table>
-	<form name="personDetailForm">
 
+<!-- 과목명 변경과 교수이름 변경은 각각의  input value와 index를 가지고 -->
+<!-- updateLecture_proc.jsp와 updateProfessor_proc.jsp로 이동 -->
+<!-- UpdateLecture.updateLecture -->
+<!-- UpdateLecture.updateProfessor -->
+<!-- 를 실행하고 유효성 검사를 통과 후 해당 정보를 수정합니다. -->
+<!-- 삭제도 index 값을 가지고 deleteLecture_proc.jsp로 이동하고  -->
+<!-- UpdateLecture.deleteLecture를 실행. 해당 정보를 삭제합니다. -->
+	<form name="personDetailForm">
 		<div class="input-group mb-3">
 			<input type="text" class="form-control" placeholder="변경할 과목명"
 				aria-label="Recipient's username" aria-describedby="button-addon2"
-				name="updatelecture1" value=""> 
-			<input type="hidden" name="index_1" value="<%=lectureInfo.getIndexId()%>" required>
-
+				name="updatelecture1" value=""> <input type="hidden"
+				name="index_1" value="<%=lectureInfo.getIndexId()%>" required>
 			<select class="form-control" name="profSelect">
-				<option  value="0">교수선택</option>
-	<%
-			for(Prof p : proflist){
-	%>
+				<option value="0">교수선택</option>
+				<%
+				for (Prof p : proflist) {
+				%>
 				<option value="<%=p.getName()%>"><%=p.getDept()%> {{{<%=p.getName()%>}}}
 				</option>
-	<% 	
-			};
-	%>
+				<%
+				} ;
+				%>
 			</select>
 
 			<button class="btn btn-outline-secondary" type="button"
 				id="button-addon3">변경하기</button>
-
 		</div>
-
-
-
-
 	</form>
 
+
 	<script>
-	
 		document.getElementById('button-addon3').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.personDetailForm;
@@ -128,7 +124,7 @@
 			
 			});
 		
-</script>
+	</script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
