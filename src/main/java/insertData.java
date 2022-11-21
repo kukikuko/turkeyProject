@@ -19,6 +19,14 @@ public class insertData {
 	public static void main(String[] args) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 
+		
+//		교수목록은 API데이터(JSON)를 받아서 insertData.java에서 JSONParser를 통해 파싱 후
+//		교수진, 학과에 맞는 value값을 리스트 형식으로 Prof DTO에 담은 후
+//		중복검사 후		
+//		DB연동에 사용할 INSERT 메소드를 만들어서 교수목록을 생성합니다.
+//		강의정보는 아래를 가집니다.
+//		교수이름 / 학과 / 교수번호 / 
+		
 //		LectureDao md = new LectureDao();
 //		JSONParser parser = new JSONParser();
 //		List<Prof> prof = new ArrayList();
@@ -54,6 +62,8 @@ public class insertData {
 //			isP = false;
 //		}
 
+		
+		
 //		강의목록은 API데이터(JSON)를 받아서 insertData.java에서 JSONParser를 통해 파싱 후
 //		학 오브젝트를 리스트 형식으로 Lectureinfo DTO에 담은 후
 //		DB연동에 사용할 INSERT 메소드를 만들어서 강의목록을 생성합니다.
