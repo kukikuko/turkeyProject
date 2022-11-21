@@ -44,7 +44,6 @@
 				credit = 3;
 			}
 			
-			out.println(credit);
 			
 			String classTime = classTimeDay + " " + classTimeStarthour + ":" + classTimeStartminute +
 				"~" + classTimeFinishthour + ":" + classTimeFinishtminute;

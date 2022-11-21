@@ -42,7 +42,6 @@
 				break;
 			}
 		}
-		out.println(sn);
 		if(sn==true) {
 	%>
 			<script>
@@ -73,7 +72,6 @@
 				break;
 			}
 		}
-		out.println(pl);
 		if(pl==true){
 	%>
 		<script>
@@ -139,8 +137,6 @@
 			
 		}
 		
-		out.println(is);
-		out.println(sn);
 		boolean tc = false;
 		if(is == false && sn==false && pl==false) {
 		int result = personDao.insertDept(id);

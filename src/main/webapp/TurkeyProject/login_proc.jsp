@@ -17,7 +17,6 @@
 		String pw = request.getParameter("userPw");
 		String type = request.getParameter("chk_info");
 		int result = 0; 
-		out.println(type);
 		int loginResult = 0;
 		
 // 		result = personDao.profLogin(id, pw);
@@ -32,7 +31,6 @@
 			result = personDao.adminLogin(id, pw);			
 			loginResult = 3;
 		}
-		out.println(loginResult);
 		if(result > 0) {
 			if(loginResult == 1) {
 				personDao.deleteloginDb();

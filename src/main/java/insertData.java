@@ -14,7 +14,7 @@ import lecture.dao.LectureDao;
 import lecture.dto.LectureInfo;
 import lecture.dto.Prof;
 
-public class inesrtData {
+public class insertData {
 
 	public static void main(String[] args) throws IOException, ParseException {
 		// TODO Auto-generated method stub

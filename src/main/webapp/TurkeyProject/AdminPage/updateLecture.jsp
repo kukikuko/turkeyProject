@@ -21,7 +21,6 @@
 
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
-		out.println(id);
 		LectureDao lectureDao = new LectureDao();
 		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 		Lecture lecture = new Lecture();

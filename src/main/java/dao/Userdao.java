@@ -82,7 +82,6 @@ public class Userdao {
 			psmt.setString(1, userID);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				System.out.println(rs.getString(1));
 				if (rs.getString(1).equals(userPassword)) {
 					return 1; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
 				} else
@@ -108,7 +107,6 @@ public class Userdao {
 			psmt.setString(1, userID);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				System.out.println(rs.getString(1));
 				if (rs.getString(1).equals(userPassword)) {
 					return 1; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
 				} else
@@ -133,7 +131,6 @@ public class Userdao {
 			psmt.setString(1, userID);
 			rs = psmt.executeQuery();
 			if (rs.next()) {
-				System.out.println(rs.getString(1));
 				if (rs.getString(1).equals(userPassword)) {
 					return 1; // 占싸깍옙占쏙옙 占쏙옙占쏙옙
 				} else

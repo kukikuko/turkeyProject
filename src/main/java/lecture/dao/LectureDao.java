@@ -84,9 +84,7 @@ public class LectureDao {
 			psmt.setString(10, info.professor);			
 			psmt.setInt(11, info.lectureCredit);
 			psmt.setInt(12, random);
-			System.out.println(random);
 			int result = psmt.executeUpdate();
-//			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -285,7 +283,6 @@ public class LectureDao {
 	         e.printStackTrace();
 	      }finally {
 	    	  disConnect();
-//				System.out.println(list.size());
 			}
 	      return list;
 	   }
@@ -315,7 +312,6 @@ public class LectureDao {
 				lectureInfo.setClassTime(rs.getString("classTime"));
 				lectureInfo.setLectureRoom(rs.getString("lectureRoom"));
 				lectureInfo.setProfessor(rs.getString("professor"));
-//				System.out.println(rs.getString("professor"));
 				lectureInfoList.add(lectureInfo);
 			}
 			
@@ -338,11 +334,9 @@ public class LectureDao {
 		StudentInfo studentInfo = null;
 		try{
 			connect();
-//			System.out.println(indexId);
 			psmt = conn.prepareStatement(sql);
 			psmt.setInt(1, indexId);
 			rs = psmt.executeQuery();
-//			System.out.println(rs);
 			while(rs.next()) {
 				studentInfo = new StudentInfo();
 				studentInfo.setName(rs.getString("SD_NAME"));
@@ -351,16 +345,12 @@ public class LectureDao {
 				studentInfo.setId(rs.getString("SD_ID"));
 				studentInfo.setGrade(rs.getString("DEPT_GRADE"));
 				list.add(studentInfo);
-//				System.out.println(rs.getString("SD_EMAIL"));
-//				System.out.println(rs.getString("SD_PN"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			disConnect();
 		}
-//		System.out.println("---");
-//		System.out.println(list);
 
 		return list;
 	}
@@ -386,7 +376,6 @@ public class LectureDao {
 				createLectureInfo.setProfessor(rs.getString("professor"));
 				createLectureInfo.setIndexId(rs.getInt("lectureno"));
 				createLectureInfo.setLectureCredit(rs.getInt("credit"));
-//				System.out.println(rs.getString("professor"));
 				createLectureList.add(createLectureInfo);
 			}
 		} catch (Exception e) {
@@ -429,8 +418,6 @@ public class LectureDao {
 				ci.setA2(Integer.parseInt(rs.getString("A2")));
 				ci.setB1(Integer.parseInt(rs.getString("B1")));
 				ci.setB2(Integer.parseInt(rs.getString("B2")));
-				// System.out.println(ci.getFirst());
-				// System.out.println(ci.getSecond());
 				classTimeInfoList.add(ci);
 			}
 
@@ -473,9 +460,6 @@ public class LectureDao {
 				ci.setA2(Integer.parseInt(rs.getString("A2")));
 				ci.setB1(Integer.parseInt(rs.getString("B1")));
 				ci.setB2(Integer.parseInt(rs.getString("B2")));
-				System.out.println(ci.getFirst());
-				System.out.println(ci.getSecond());
-				System.out.println(ci.getA1());
 			}
 
 		} catch (Exception e) {
@@ -504,7 +488,6 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureInfo li = new LectureInfo();
 				li.setSubjectNumber(rs.getString("subjectNumber"));
-				System.out.println(li.getSubjectNumber());
 				lectureInfoList.add(li);
 			}
 		} catch (Exception e) {
@@ -540,7 +523,6 @@ public class LectureDao {
 				li.setSubjectNumber(rs.getString("subjectNumber"));
 				li.setSubscriptioLimit(rs.getInt("subscription_limit"));
 				li.setCurrentStudent(rs.getInt("currentstudent"));
-//				System.out.println(li.getSubjectNumber());
 			}
 
 		} catch (Exception e) {
@@ -569,7 +551,6 @@ public class LectureDao {
 			while(rs.next()) {
 				LectureInfo li = new LectureInfo();
 				li.setLectureCredit(rs.getInt("lecture_credit"));
-				System.out.println(li.getLectureCredit());
 				lectureInfoList.add(li);
 			}
 		} catch (Exception e) {
@@ -665,7 +646,6 @@ public class LectureDao {
 			psmt.setInt(7, credit);
 			psmt.setInt(8, random);
 			int result = psmt.executeUpdate();
-//			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

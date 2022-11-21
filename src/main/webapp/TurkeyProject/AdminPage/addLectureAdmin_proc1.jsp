@@ -17,10 +17,6 @@
 
 	int lectureno = Integer.parseInt(request.getParameter("value"));
 	
-	out.println(lectureno);
-	out.println(createLectureList.get(lectureno).indexId);
-	
-	
 	int indexId = createLectureList.get(lectureno).indexId;
 	String department = createLectureList.get(lectureno).department;
 	String subjectName = createLectureList.get(lectureno).subjectName;
@@ -29,8 +25,6 @@
 	String professor = createLectureList.get(lectureno).professor;
 	String subjectNumber = createLectureList.get(lectureno).subjectNumber;
 	int credit = createLectureList.get(lectureno).lectureCredit;
-	
-	out.println(subjectNumber + " " + indexId + " " + lectureno);
 	
 	ld.insertLectureInfoAdmin(department, subjectNumber, subjectName, classTime, lectureRoom, professor, credit);
 
