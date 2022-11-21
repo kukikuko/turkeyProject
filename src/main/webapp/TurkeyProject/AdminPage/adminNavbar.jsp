@@ -20,12 +20,16 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="collapse navbar-collapse" id="navbarNav">
+<!-- 개설 대기 버튼을 누르면 addLectureAdmin.jsp로 이동합니다. -->
 			<div class="navbar-nav">
-				<a class="nav-link" href="addLectureAdmin.jsp">강의 승인</a>
+				<a class="nav-link" href="addLectureAdmin.jsp">개설 대기</a>
 			</div>
+<!-- 강의수정 버튼을 누르면. 학생계정과 마찬가지로 강의목록들이 SELECT되고. -->
+<!-- 특정 강의의 정보를 수정 할 수 있습니다. -->
 			<div class="navbar-nav">
 				<a class="nav-link" href="adminLectureList.jsp">강의 수정</a>
 			</div>
+<!-- 관리자 계정은 삭제되지 않고 그냥 main.jsp로 이동합니다. -->
 			<button onclick="location.href='../main.jsp?'">로그아웃</button>
 		</div>
 	</nav>

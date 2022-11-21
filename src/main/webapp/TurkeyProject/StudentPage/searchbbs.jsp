@@ -9,10 +9,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>검색결과</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
+<!-- 옵션과 검색어를 파라미터로 LectureDao에 전달합니다. -->
+<!-- 쿼리문을 파라미터랑 잘 조합하고 유효성을 걸어서 작성. -->
+<!-- 유효성은 옵션과 검색어 둘중 하나를 입력안하면 검색어결과거 없다는 알림이 뜹니다. -->
+<!-- 조건에 맞게 리스트가 화면에 출력되고. 수강신청 버튼을 누르면 디테일페이지로 넘어갑니다. -->
 <%@ include file="Navbar.jsp"%>
 		<table class="table">
 			<thead>
@@ -28,11 +32,9 @@
       				<th scope="col">정원</th>
 				</tr>
 			</thead>
+			
 			<tbody>
-
-
-
-				<%
+			<%
 				LectureDao lectureDao = new LectureDao();
 				List<LectureInfo> list = lectureDao.getSearch(request.getParameter("searchField"), request.getParameter("searchText"));
 				if (list.size() == 0) {
@@ -43,7 +45,7 @@
 					script.println("</script>");
 				}
 				for (int i = 0; i < list.size(); i++) {
-				%>
+			%>
 				<tr>
 					<td><%=list.get(i).getDepartment()%></td>
 					<td><%=list.get(i).getSubjectNumber()%></td>
@@ -59,9 +61,9 @@
 					<td>
 				</tr>
 
-				<%
+			<%
 				}
-				%>
+			%>
 			</tbody>
 		</table>
 		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

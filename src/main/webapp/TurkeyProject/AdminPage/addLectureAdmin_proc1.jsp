@@ -10,6 +10,10 @@
 <meta charset="UTF-8">
 </head>
 <body>
+<!-- addLectureAdmin_proc.jsp에서는 받아온 value를  -->
+<!-- LectureDao.insertLectureInfoAdmin로 전달하고. -->
+<!-- 실행된 결과는 학생과 교수의 강의목록 화면에 생성됩니다. -->
+
 <%
 	LectureDao ld = new LectureDao();
 	List<LectureInfo> createLectureList = ld.createLecture();
@@ -30,8 +34,8 @@
 
 %>
 <script>
-					alert('승인되었습니다.')
-					location.href = "addLectureAdmin.jsp";
+	alert('승인되었습니다.')
+	location.href = "addLectureAdmin.jsp";
 </script> 
 <% ld.deleteTempLecture(indexId); %>
 </body>
