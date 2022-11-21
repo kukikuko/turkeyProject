@@ -44,14 +44,17 @@ public class UpdateLecture {
 		}
 	}
 
-	public void updateLecture(String name, int index) {
+	public void updateLecture(String lectureName, String profName, int index) {
 
-		String SQL = "UPDATE turkey_lecture_info SET " + "subjectName = ?" + "WHERE indexid = ?	";
+		String SQL = "UPDATE turkey_lecture_info SET " 
+					+ "subjectName = ?, professor = ? " 
+					+ "WHERE indexid = ?	";
 		try {
 			connect();
 			psmt = conn.prepareStatement(SQL);
-			psmt.setString(1, name);
-			psmt.setInt(2, index);
+			psmt.setString(1, lectureName);
+			psmt.setString(2, profName);
+			psmt.setInt(3, index);
 			psmt.executeUpdate();
 
 		} catch (Exception e) {

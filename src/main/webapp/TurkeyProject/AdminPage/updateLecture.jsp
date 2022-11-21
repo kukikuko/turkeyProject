@@ -1,5 +1,6 @@
 <%@page import="lecture.dto.LectureInfo"%>
 <%@page import="lecture.dao.LectureDao"%>
+<%@page import="lecture.dto.Prof"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@page import="dao.Lecture"%>
@@ -15,14 +16,18 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<%@ include file="adminNavbar.jsp"%>
+	<%@ include file="adminNavbar.jsp"%>
 	<h2>강의정보 업데이트</h2>
 
 	<%
 		int id = Integer.parseInt(request.getParameter("indexId"));
+		out.println(id);
 		LectureDao lectureDao = new LectureDao();
 		LectureInfo lectureInfo = lectureDao.selectPersonInfoListByIndexId((id));
 		Lecture lecture = new Lecture();
+		
+		
+		List<Prof> proflist = lectureDao.selectProf(lectureInfo.getDepartment());
 	%>
 
 
@@ -50,9 +55,9 @@
 					<td><%=lectureInfo.getLectureRoom()%></td>
 					<td><%=lectureInfo.getProfessor()%></td>
 					<td><button id="deleteButton" name="updatelecture2"
-							value="<%=lectureInfo.getIndexId()%>">삭제하기</button>
-						<input type="hidden" name="index_3"
-						value="<%=lectureInfo.getIndexId()%>" required></td>
+							value="<%=lectureInfo.getIndexId()%>">삭제하기</button> <input
+						type="hidden" name="index_3" value="<%=lectureInfo.getIndexId()%>"
+						required></td>
 
 				</tr>
 			</form>
@@ -66,54 +71,43 @@
 		<div class="input-group mb-3">
 			<input type="text" class="form-control" placeholder="변경할 과목명"
 				aria-label="Recipient's username" aria-describedby="button-addon2"
-				name="updatelecture" value=""> 
-				<input type="hidden" name="index_1" value="<%=lectureInfo.getIndexId()%>" required>
+				name="updatelecture1" value=""> 
+			<input type="hidden" name="index_1" value="<%=lectureInfo.getIndexId()%>" required>
 
-			<button class="btn btn-outline-secondary" type="button"
-				id="button-addon2">변경하기</button>
-		</div>
-
-		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="변경할 교수진"
-				aria-label="Recipient's username" aria-describedby="button-addon2"
-				name="updatelecture1" value=""> <input type="hidden"
-				name="index_2" value="<%=lectureInfo.getIndexId()%>" required>
+			<select class="form-control" name="profSelect">
+				<option  value="0">교수선택</option>
+	<%
+			for(Prof p : proflist){
+	%>
+				<option value="<%=p.getName()%>"><%=p.getDept()%> {{{<%=p.getName()%>}}}
+				</option>
+	<% 	
+			};
+	%>
+			</select>
 
 			<button class="btn btn-outline-secondary" type="button"
 				id="button-addon3">변경하기</button>
+
 		</div>
 
 
 
 
 	</form>
-	</div>
+
 	<script>
-		document.getElementById('button-addon2').addEventListener('click', (e)=>{
-			e.preventDefault();
-			let form = document.personDetailForm;
-			if(form.updatelecture.value == ""){//이름이 없는 경우
-				alert('과목명을 입력해주세요.');
-				form.updatelecture.focus();
-				return false;
-			}else{//이름이 있는 경우
-				if(confirm('과목명을 수정하시겠습니까?')){
-					form.action = "updateLecture_proc.jsp";
-					form.submit();
-				}
-			}
-		});
 	
 		document.getElementById('button-addon3').addEventListener('click', (e)=>{
 			e.preventDefault();
 			let form = document.personDetailForm;
-			if(form.updatelecture1.value == ""){//이름이 없는 경우
-				alert('교수명을 입력해주세요.');
+			if(form.updatelecture1.value == "" && form.profSelect.value == 0){//이름이 없는 경우
+				alert('과목명 또는 교수진을 변경해주세요');
 				form.updatelecture1.focus();
 				return false;
 			}else{//이름이 있는 경우
-				if(confirm('교수명을 수정하시겠습니까?')){
-					form.action = "updateProfessor_proc.jsp";
+				if(confirm('강의정보를 수정하시겠습니까?')){
+					form.action = "updateLecture_proc.jsp";
 					form.submit();
 				}
 			}
@@ -125,15 +119,9 @@
 			var del = confirm("정말 삭제 하시겠습니까?");
 			
 			if(del == true){
-				if(form.updatelecture2.value == "<%=lectureInfo.getIndexId()%>"){
-					alert('삭제 되었습니다.')
-				
-					form.updatelecture2.focus();
-					
-				
-						form.action = "deleteLecture_proc.jsp";
-						form.submit();
-				}	
+				alert('삭제 되었습니다.')
+				form.action = "deleteLecture_proc.jsp";
+				form.submit();
 			}
 			else{
 				alert("취소 되었습니다.");

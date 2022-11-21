@@ -693,4 +693,31 @@ public class LectureDao {
 			disConnect();
 		}
 	}
+	public List<Prof> selectProf(String dept){
+	
+		String sql = "select * from turkey_prof where pf_name is not null and pf_dept = ?";
+		
+		List<Prof> proflist = null;
+		
+		try {
+			connect();
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dept);
+			rs = psmt.executeQuery();
+			proflist = new ArrayList<Prof>();
+			
+			while(rs.next()) {
+				Prof pf = new Prof();
+				pf.setName(rs.getString("PF_NAME"));
+				pf.setDept(rs.getString("PF_DEPT"));
+				proflist.add(pf);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+			disConnect();
+		}
+		return proflist;
+	} 
 }

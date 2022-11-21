@@ -12,11 +12,28 @@
 <body>
 
 <%
+		LectureDao lDao = new LectureDao();
+	
 		String subject = request.getParameter("updatelecture");
 		int index = Integer.parseInt(request.getParameter("index_1"));
-		out.println(index);
+		String lectureName = request.getParameter("updatelecture1");
+		String profName = request.getParameter("profSelect");
+		
+		LectureInfo lectureInfo = lDao.selectPersonInfoListByIndexId(index);
+			
+		if(lectureName.equals("")) {
+			lectureName = lectureInfo.getSubjectName();
+		}
+		
+		if(profName.equals("0")) {
+			profName = lectureInfo.getProfessor();
+		}
+		
+		
+		
+		
 		UpdateLecture up = new UpdateLecture();
-		up.updateLecture(subject, index);
+		up.updateLecture(lectureName, profName, index);
 	%>
 	
 			<script>
