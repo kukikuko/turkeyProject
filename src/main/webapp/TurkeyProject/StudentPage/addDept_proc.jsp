@@ -52,15 +52,18 @@
 	<script>
 				alert('같은 강의는 신청 할 수 없습니다.')
 				location.href = "index.jsp"
-			</script>
+	</script>
 	<%		
 			}
-		if(subNum.getCurrentStudent() == subNum.getSubscriptioLimit()) {
+		
+		boolean isd = false;
+		if(subNum.getCurrentStudent() >= subNum.getSubscriptioLimit()) {
+				isd = true;
 	%>
 	<script>
 				alert('정원이 초과되었습니다')
 				location.href = "index.jsp"
-			</script>
+	</script>
 	<%	
 		}
 
@@ -78,7 +81,7 @@
 		}
 		if(pl==true){
 	%>
-	<script>
+		<script>
 			alert('신청가능 학점을 초과했습니다.')
 			location.href = "index.jsp"
 		</script>
@@ -142,9 +145,8 @@
 		}
 		
 		boolean tc = false;
-		if(is == false && sn==false && pl==false) {
+		if(is == false && sn==false && pl==false && isd == false) {
 		int result = personDao.insertDept(id);
-		
 		if(result > 0) {
 		
 	%>

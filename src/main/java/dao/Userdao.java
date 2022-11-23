@@ -18,7 +18,7 @@ public class Userdao {
 	ResultSet rs = null;
 
 	public void connect() throws Exception {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // 占쏙옙占쏙옙 DB占쏙옙占쏙옙
+		String db_url = "jdbc:oracle:thin:@192.168.0.63:1521:orcl"; // 占쏙옙占쏙옙 DB占쏙옙占쏙옙
 		String db_id = "scott"; // 占쏙옙占쏙옙 占쏙옙占싱듸옙
 		String db_pw = "tiger"; // 占쏙옙占쏙옙 占쏙옙占싱듸옙占쏙옙 占쏙옙橘占싫�
 

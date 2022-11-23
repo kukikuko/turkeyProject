@@ -23,7 +23,7 @@ public class LectureDao {
 	
 	//DB연결
 	public void connect() {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl";
+		String db_url = "jdbc:oracle:thin:@192.168.0.63:1521:orcl";
 		String db_id = "scott";
 		String db_pw = "tiger";
 
@@ -292,7 +292,7 @@ public class LectureDao {
 				+" subjectNumber, subjectName, "
 				+" classTime, lectureRoom, professor "
 				+ "FROM turkey_lecture_info "
-				+ "WHERE professor = (SELECT pf_name FROM turkey_prof "
+				+ "WHERE (professor, department) = (SELECT pf_name, pf_dept FROM turkey_prof "
 				+ "WHERE pf_no = (SELECT pf_id FROM turkey_login_prof))";
 		List<LectureInfo> lectureInfoList = null;
 		try{

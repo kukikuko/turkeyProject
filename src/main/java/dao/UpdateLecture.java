@@ -13,7 +13,7 @@ public class UpdateLecture {
 	ResultSet rs = null;
 
 	public void connect() throws Exception {
-		String db_url = "jdbc:oracle:thin:@localhost:1521:orcl"; // 접속 DB정보
+		String db_url = "jdbc:oracle:thin:@192.168.0.63:1521:orcl"; // 접속 DB정보
 		String db_id = "scott"; // 접속 아이디
 		String db_pw = "tiger"; // 접속 아이디의 비밀번호
 
